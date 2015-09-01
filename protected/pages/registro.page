@@ -1,0 +1,3 @@
+<%@ MasterClass="Application.layouts.MainLayout" Title="Registro de compra" %>
+<com:TContent ID="Main">
+</com:TContent>

@@ -9,8 +9,6 @@
 		<com:TStyleSheet ID="stlshGoogie" StyleSheetUrl="../compartidos/googiespell/googiespell.css" />
 	</com:THead>
 	<body <com:TLiteral ID="litBody" />>
-		<!--com:TClientScript ID="jsNieve" ScriptUrl="../compartidos/nieve/nieve.js" /-->
-		<!--com:TClientScript ID="jsWZDragDrop" ScriptUrl="../compartidos/wz_dragdrop/wz_dragdrop.js" /-->
 		<com:TForm>
 			<com:TClientScript PradoScripts="prado" />
 			<com:TClientScript ID="jsDateValid" ScriptUrl="librerias/datevalid.js" />
@@ -20,30 +18,15 @@
 			<com:TClientScript ID="jsSpell" ScriptUrl="librerias/spell.js" />
 			<com:TContentPlaceHolder ID="Cabeceras" />
 			<div id="page" align="center">
-				<com:TTable Width="810" Style="text-align:center" BorderWidth="0" CellPadding="0" CellSpacing="0" BackColor="#F7F8FC">
+				<com:TTable Width="800" Style="text-align:center" BorderWidth="0" CellPadding="0" CellSpacing="0" BackColor="#CCDDDD">
 					<div id="header">
 						<com:TTableRow>
-							<com:TTableCell RowSpan="5" Style="background-image:url(images/borde.gif)" />
 							<com:TTableCell>
 								<com:TPanel ID="pnlEncabezado">
-									<!-- <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
-										codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0"
-										width="800" height="144">
-										<param name="movie" value="images/fotos.swf">
-										<param name="quality" value="high">
-										<embed src="images/fotos.swf" quality="high"
-											pluginspage="http://www.macromedia.com/go/getflashplayer"
-											type="application/x-shockwave-flash" width="800" height="144" />
-									</object> -->
 									<com:TImage ImageUrl="images/banner.png" />
 								</com:TPanel>
 							</com:TTableCell>
-							<com:TTableCell RowSpan="5" Style="background-image:url(images/borde.gif)" />
 						</com:TTableRow>
-						<!-- <com:TTableRow>
-							<com:TTableCell Style="background-image:url(images/barraBanne.gif)" Width="800" Height="18">&nbsp;
-							</com:TTableCell>
-						</com:TTableRow> -->
 					</div>
 
 					<div id="menu">

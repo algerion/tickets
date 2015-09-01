@@ -12,15 +12,15 @@ class MainLayout extends TTemplateControl
 	{
 		parent::onInit($param);
 		
-/*		if($this->User->IsGuest)
+		if($this->User->IsGuest)
 			$this->mnuPrincipal->Visible = false;
-		else*/
+		else
 			$this->mnuPrincipal->Visible = true;
 /*
 		echo $this->User->Name;
 		echo "<br />";
 		echo $this->Application->id;
-*/		
+*/
 		if($this->Request["popup"] != null)
 		{
 			$this->mnuPrincipal->Visible = false;

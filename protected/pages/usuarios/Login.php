@@ -12,7 +12,7 @@ class Login extends TPage
 	{
 		parent::onLoad($param);
 
-		$this->dbConexion = Conexion::getConexion($this->Application, "dbpr");
+		$this->dbConexion = Conexion::getConexion($this->Application, "db");
 		Conexion::createConfiguracion();
 		
 		if($this->Request["action"] == "Salir")

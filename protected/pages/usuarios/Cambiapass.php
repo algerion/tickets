@@ -9,7 +9,7 @@ class cambiapass extends TPage
 	{
 		parent::onLoad($param);
 
-		$this->dbConexion = Conexion::getConexion($this->Application, "dbac");
+		$this->dbConexion = Conexion::getConexion($this->Application, "db");
 		Conexion::createConfiguracion();
 	}
 

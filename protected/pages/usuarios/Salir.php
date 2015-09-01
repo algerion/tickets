@@ -10,7 +10,7 @@ class salir extends TPage
 	{
 		parent::onLoad($param);
 
-		$this->dbConexion = Conexion::getConexion($this->Application, "dbac");
+		$this->dbConexion = Conexion::getConexion($this->Application, "db");
 		Conexion::createConfiguracion();
 
 		Comparte_Auth_Cookie::BorraCookies($this, $this->Application->id);

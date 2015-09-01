@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <authorization>
+    <allow pages="asunto" users="*" />
+    <allow pages="Home, Usuarios.cambiapass" users="@" />
+	<allow pages="registro" roles="registro" />
+    <deny users="*" />
+  </authorization>
+</configuration>
