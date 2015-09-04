@@ -15,7 +15,7 @@ require_once('../compartidos/clases/HMAC.php');
 class Usuario extends TDbUser
 {
 	var $hmac;
-	var $tabla = "usuarios", $login = "usuario", $pass = "acceso", $id_usuario = "id_usuario";
+	var $tabla = "usuarios", $login = "usuario", $pass = "acceso", $id_usuario = "id_usuario", $nombre = "nombre";
 	var  $id_permiso = "id_permiso", $permiso = "permiso", $roles = "permisos", $lista = "lista_permisos";
 
     /**
@@ -28,7 +28,7 @@ class Usuario extends TDbUser
      */
     public function createUser($username)
     {
-        $consulta = "SELECT " . $this->id_usuario . " FROM " . $this->tabla . " WHERE " . $this->login . " = :login";
+        $consulta = "SELECT " . $this->id_usuario . ", " . $this->nombre . " FROM " . $this->tabla . " WHERE " . $this->login . " = :login";
         $command = $this->getDbConnection()->createCommand($consulta);
         $command->bindValue(":login", $username);
         $resultado = $command->query();
@@ -36,17 +36,19 @@ class Usuario extends TDbUser
         if($row = $resultado->read())
         {
             $user = new Usuario($this->Manager);
-            $user->Name = $row[$this->id_usuario];  // asigna el nombre de usuario
+            $user->Id = $row[$this->id_usuario];  // asigna el id de usuario
+            $user->Name = $row[$this->nombre];  // asigna el nombre de usuario
+			//file_put_contents("temp/usr.txt", $row[$this->nombre], FILE_APPEND);
 			$consulta = "SELECT " . $this->permiso . " FROM " . $this->roles . " r JOIN " . 
 					$this->lista . " l ON r." . $this->id_permiso . " = l." . $this->id_permiso . 
 					" WHERE " . $this->id_usuario . " = :id_usuario";
 			$command = $this->getDbConnection()->createCommand($consulta);
-			$command->bindValue(":id_usuario", $user->Name);
+			$command->bindValue(":id_usuario", $user->Id);
 			$roles = array('');
 			foreach($command->query()->readAll() as $rol)
 			{
 				$roles[] = $rol[$this->permiso];
-//				file_put_contents("temp/usr.txt", $rol, FILE_APPEND);
+				//file_put_contents("temp/usr.txt", $rol, FILE_APPEND);
 			}
 			$user->Roles = $roles; // asigna los roles
 			
@@ -91,6 +93,21 @@ class Usuario extends TDbUser
     {
         return $this->isInRole('1');
     }*/
+	
+	public function getId()
+	{
+		return $this->getState('Id','');
+	}
+
+	/**
+	 * @param string username
+	 */
+	public function setId($value)
+	{
+		$this->setState('Id',$value,'');
+	}
+
+
 
 	public function createUserFromCookie($cookie)
 	{
