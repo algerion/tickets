@@ -45,6 +45,6 @@
 				</prop:EmptyTemplate>
 			</com:TDataGrid>
 		</com:TActivePanel>
-		<com:TButton ID="btnGuardar" Text="Guardar" />
+		<com:TButton ID="btnGuardar" Text="Guardar" OnClick="btnGuardar_Click" />
 	</div>
 </com:TContent>

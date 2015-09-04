@@ -103,5 +103,22 @@ class Registro extends TPage
 			$this->Page->CallbackClient->callClientFunction("msg", array("Introduzca una cantidad correcta"));
 		}
 	}
+
+	public function contenidoTabla($datagrid)
+	{
+		$contenido = array();
+		for($i = 0; $i < $datagrid->ItemCount; $i++)
+		{
+			$row = array();
+			for($j = 0; $j< $datagrid->AutoColumns->Count; $j++)
+				$row[$this->dgProductos->Items->itemAt($i)->DataSourceIndex] = $this->dgProductos->Items->itemAt($i)->Cells->itemAt($j)->Text;
+			$contenido[] = $row;
+		}
+	}
+	
+	public function btnGuardar_Click($sender, $param)
+	{
+		
+	}
 }
 ?>
