@@ -6,7 +6,7 @@ include_once('../compartidos/clases/conexion.php');
 class Registro extends TPage
 {
 	var $dbConexion;
-	var $columnas = array("codigo", "descripcion", "cantidad", "precio", "total");
+	var $columnas = array("Código", "Descripción", "Cantidad", "Precio", "Total");
 
 	public function onLoad($param)
 	{
@@ -38,9 +38,11 @@ class Registro extends TPage
 							array("Existencias del producto insuficientes. Sólo contamos con " . $producto[0]["existencias"] . " unidades."));
 				else*/
 				{
+					$total_productos = 0;
+					$total_a_pagar = 0;
 					$cantidad = 0;
 					$contenido = array();
-					for($i = 0; $i < $this->dgProductos->ItemCount; $i++)
+					for($i = 0; $i < $this->dgProductos->ItemCount - 1; $i++)
 					{
 						$row = array();
 						for($j = 0; $j< $this->dgProductos->AutoColumns->Count; $j++)
@@ -63,15 +65,32 @@ class Registro extends TPage
 								$this->columnas[0]=>$producto[0]["codigo"], 
 								$this->columnas[1]=>$producto[0]["descripcion"], 
 								$this->columnas[2]=>$this->txtCantidad->Text, 
-								$this->columnas[3]=>$producto[0]["precio"], 
-								$this->columnas[4]=>$producto[0]["precio"] * $this->txtCantidad->Text
+								$this->columnas[3]=>number_format($producto[0]["precio"], 2),
+								$this->columnas[4]=>number_format(($producto[0]["precio"] * $this->txtCantidad->Text), 2)
 						);
 						$contenido[] = $row;
 					}
 					
+					foreach($contenido as $c)
+					{
+						$total_productos += $c[$this->columnas[2]];
+						$total_a_pagar += $c[$this->columnas[4]];
+					}
+					
+					$row = array(
+							$this->columnas[0]=>"", 
+							$this->columnas[1]=>"TOTAL", 
+							$this->columnas[2]=>$total_productos, 
+							$this->columnas[3]=>"", 
+							$this->columnas[4]=>number_format($total_a_pagar, 2)
+					);
+					$contenido[] = $row;
+
 					$this->dgProductos->DataSource = $contenido;
 					$this->dgProductos->dataBind();
 					$this->pnlProductos->render($param->getNewWriter());
+					$this->txtCodigo->Text = "";
+					$this->txtCantidad->Text = "";
 				}
 			}
 			else
