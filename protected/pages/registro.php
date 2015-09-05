@@ -41,7 +41,22 @@ class Registro extends TPage
 					$total_productos = 0;
 					$total_a_pagar = 0;
 					$cantidad = 0;
-					$contenido = array();
+					$contenido = $this->contenidoTabla($this->dgProductos);
+					array_pop($contenido);
+					for($i = 0; $i < count($contenido); $i++)
+					{
+						if(!strcmp($contenido[$i][$this->columnas[0]], $producto[0]["codigo"]))
+						{
+							$cantidad = (int) $contenido[$i][$this->columnas[2]];
+							$cantidad += $this->txtCantidad->Text;
+							$contenido[$i][$this->columnas[2]] = $cantidad;
+							$contenido[$i][$this->columnas[4]] = 
+									number_format($contenido[$i][$this->columnas[3]] * $cantidad, 2);
+						}
+						$total_productos += $contenido[$i][$this->columnas[2]];
+						$total_a_pagar += $contenido[$i][$this->columnas[4]];
+					}
+					/*
 					for($i = 0; $i < $this->dgProductos->ItemCount - 1; $i++)
 					{
 						$row = array();
@@ -58,7 +73,7 @@ class Registro extends TPage
 						}
 						$contenido[] = $row;
 					}
-
+*/
 					if($cantidad == 0)
 					{
 						$row = array(
@@ -69,12 +84,8 @@ class Registro extends TPage
 								$this->columnas[4]=>number_format(($producto[0]["precio"] * $this->txtCantidad->Text), 2)
 						);
 						$contenido[] = $row;
-					}
-					
-					foreach($contenido as $c)
-					{
-						$total_productos += $c[$this->columnas[2]];
-						$total_a_pagar += $c[$this->columnas[4]];
+						$total_productos += $contenido[$i][$this->columnas[2]];
+						$total_a_pagar += $contenido[$i][$this->columnas[4]];
 					}
 					
 					$row = array(
@@ -88,9 +99,10 @@ class Registro extends TPage
 
 					$this->dgProductos->DataSource = $contenido;
 					$this->dgProductos->dataBind();
-					$this->pnlProductos->render($param->getNewWriter());
 					$this->txtCodigo->Text = "";
 					$this->txtCantidad->Text = "";
+					if($param != null)
+						$this->pnlProductos->render($param->getNewWriter());
 				}
 			}
 			else
@@ -111,14 +123,20 @@ class Registro extends TPage
 		{
 			$row = array();
 			for($j = 0; $j< $datagrid->AutoColumns->Count; $j++)
-				$row[$this->dgProductos->Items->itemAt($i)->DataSourceIndex] = $this->dgProductos->Items->itemAt($i)->Cells->itemAt($j)->Text;
+				$row[$this->dgProductos->AutoColumns->ItemAt($j)->HeaderText] = 
+						$datagrid->Items->itemAt($i)->Cells->itemAt($j)->Text;
 			$contenido[] = $row;
 		}
+		
+		return $contenido;
 	}
 	
 	public function btnGuardar_Click($sender, $param)
 	{
+		var_dump($this->contenidoTabla($this->dgProductos));
+		//$id_nota = Conexion::Inserta_Registro($this->dbConexion, "notas",  array("generada"=>time()));
 		
+		//for
 	}
 }
 ?>
