@@ -3,7 +3,9 @@
   <authorization>
     <allow pages="asunto" users="*" />
     <allow pages="Home, Usuarios.cambiapass" users="@" />
-	<allow pages="registro" roles="registro" />
+	<allow pages="registro, nota" roles="registro" />
+	<allow pages="cobranza, caja" roles="cobranza" />
+	<allow pages="entrega, paquetes" roles="entrega" />
     <deny users="*" />
   </authorization>
 </configuration>
