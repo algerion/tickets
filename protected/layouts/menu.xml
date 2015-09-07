@@ -2,9 +2,9 @@
 <Menu ID="mnuPrincipal">
 	<MenuItem ID="smHome" Title="Inicio" Url="index.php?page=Home" Description="Inicio" />
 	<MenuItem ID="smPagos" Title="Pagos">
-		<MenuItem ID="smPagRegistro" Title="Registro de productos" Url="index.php?page=registro" Description="Registro de productos seleccionados por el cliente" />
-		<MenuItem ID="smPagCaja" Title="Cobranza" Url="index.php?page=cobranza" Description="Cobro de productos" />
-		<MenuItem ID="smPagEntrega" Title="Entrega" Url="index.php?page=entrega" Description="Entrega de productos" />
+		<MenuItem ID="smPagRegistro" Title="Registro de productos" Url="index.php?page=registro" Description="Registro de productos seleccionados por el cliente" IdPag="registro" />
+		<MenuItem ID="smPagCaja" Title="Cobranza" Url="index.php?page=cobranza" Description="Cobro de productos" IdPag="cobranza" />
+		<MenuItem ID="smPagEntrega" Title="Entrega" Url="index.php?page=entrega" Description="Entrega de productos" IdPag="entrega" />
 	</MenuItem>
 	<MenuItem ID="smUsuario" Title="Usuario">
 		<MenuItem ID="smAdmNvousr" Title="Datos del usuario" Url="index.php?page=usrs" Description="Administrar datos personales" IdPag="eusr" />
