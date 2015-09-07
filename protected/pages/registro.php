@@ -28,21 +28,32 @@ class Registro extends TPage
 	
 	public function btnAgregar_Callback($sender, $param)
 	{
-		if(is_numeric($this->txtCantidad->Text) && !strstr($this->txtCantidad->Text, ".") && $this->txtCantidad->Text > 0)
+		if(is_numeric($this->txtCantidad->Text) && $this->txtCantidad->Text > 0 && (!strstr($this->txtCantidad->Text, ".")/* || !strcmp($this->txtCodigo->Text, "VALE")*/))
 		{
 			$producto = Conexion::Retorna_Registro($this->dbConexion, "productos", array("codigo"=>$this->txtCodigo->Text));
-			if(count($producto))
+			$contenido = $this->contenidoTabla($this->dgProductos);
+			$total = array_pop($contenido);
+			//$this->Page->CallbackClient->callClientFunction("msg", array($total[$this->columnas[4]] + $producto[0]["precio"] * $this->txtCantidad->Text));
+			if($total[$this->columnas[4]] + $producto[0]["precio"] * $this->txtCantidad->Text < 0)
+			{
+				$this->Page->CallbackClient->callClientFunction("msg", array("El vale genera un importe negativo, por lo que no puede agregarse."));
+			}
+			elseif(count($producto))
 			{
 	/*			if($producto[0]["existencias"] < $this->txtCantidad->Text)
 					$this->Page->CallbackClient->callClientFunction("msg", 
 							array("Existencias del producto insuficientes. Sólo contamos con " . $producto[0]["existencias"] . " unidades."));
 				else*/
 				{
+/*					if(!strcmp($this->txtCodigo->Text, "VALE"))
+					{
+						$producto[0]["precio"] = -$this->txtCantidad->Text;
+						$this->txtCantidad->Text = 1;
+					}*/
+					
 					$total_productos = 0;
 					$total_a_pagar = 0;
 					$cantidad = 0;
-					$contenido = $this->contenidoTabla($this->dgProductos);
-					array_pop($contenido);
 					for($i = 0; $i < count($contenido); $i++)
 					{
 						if(!strcmp($contenido[$i][$this->columnas[0]], $producto[0]["codigo"]))
@@ -56,24 +67,7 @@ class Registro extends TPage
 						$total_productos += $contenido[$i][$this->columnas[2]];
 						$total_a_pagar += $contenido[$i][$this->columnas[4]];
 					}
-					/*
-					for($i = 0; $i < $this->dgProductos->ItemCount - 1; $i++)
-					{
-						$row = array();
-						for($j = 0; $j< $this->dgProductos->AutoColumns->Count; $j++)
-						{
-							if($j == 2 && !strcmp($row[$this->columnas[0]], $producto[0]["codigo"]))
-							{
-								$cantidad = (int) $this->dgProductos->Items->itemAt($i)->Cells->itemAt($j)->Text;
-								$cantidad += $this->txtCantidad->Text;
-								$row[$this->columnas[$j]] = $cantidad;
-							}
-							else
-								$row[$this->columnas[$j]] = $this->dgProductos->Items->itemAt($i)->Cells->itemAt($j)->Text;
-						}
-						$contenido[] = $row;
-					}
-*/
+
 					if($cantidad == 0)
 					{
 						$row = array(
@@ -133,10 +127,31 @@ class Registro extends TPage
 	
 	public function btnGuardar_Click($sender, $param)
 	{
-		var_dump($this->contenidoTabla($this->dgProductos));
-		//$id_nota = Conexion::Inserta_Registro($this->dbConexion, "notas",  array("generada"=>time()));
-		
-		//for
+		$productos = $this->contenidoTabla($this->dgProductos);
+		if(count($productos) > 0)
+		{
+			Conexion::Inserta_Registro($this->dbConexion, "notas",  array("generada"=>date("Y-m-d H:i:s")));
+			$id_nota =  Conexion::Ultimo_Id_Generado($this->dbConexion);
+			
+			foreach($productos as $prod)
+			{
+				if(strcmp($prod[$this->columnas[0]], ""))
+				{
+					$id_producto = Conexion::Retorna_Campo($this->dbConexion, "productos", "id_producto", array("codigo"=>$prod[$this->columnas[0]]));
+					Conexion::Inserta_Registro($this->dbConexion, "notas_productos",  
+							array("id_nota"=>$id_nota, "id_producto"=>$id_producto, 
+							"cantidad"=>$prod[$this->columnas[2]], "precio"=>$prod[$this->columnas[3]]));
+				}
+			}
+			$this->getClientScript()->registerBeginScript("guardado",
+					"alert('Información almacenada correctamente');\n" . 
+					"document.location.href = 'index.php?page=registro';\n");
+		}
+		else
+		{
+			$this->getClientScript()->registerBeginScript("no_productos",
+					"alert('Debe insertar al menos un producto para generar la nota');\n");
+		}
 	}
 }
 ?>
