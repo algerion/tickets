@@ -30,6 +30,34 @@ CREATE TABLE `lista_permisos` (
 
 insert  into `lista_permisos`(`id_permiso`,`permiso`) values (1,'admin'),(2,'cobranza'),(3,'registro'),(4,'entrega');
 
+/*Table structure for table `notas` */
+
+DROP TABLE IF EXISTS `notas`;
+
+CREATE TABLE `notas` (
+  `id_nota` int(11) NOT NULL AUTO_INCREMENT,
+  `generada` datetime DEFAULT NULL,
+  PRIMARY KEY (`id_nota`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `notas` */
+
+/*Table structure for table `notas_productos` */
+
+DROP TABLE IF EXISTS `notas_productos`;
+
+CREATE TABLE `notas_productos` (
+  `id_nota` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  `cantidad` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_nota`,`id_producto`),
+  KEY `FK_PRODUCTO` (`id_producto`),
+  CONSTRAINT `FK_NOTA` FOREIGN KEY (`id_nota`) REFERENCES `notas` (`id_nota`) ON UPDATE CASCADE,
+  CONSTRAINT `FK_PRODUCTO` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `notas_productos` */
+
 /*Table structure for table `permisos` */
 
 DROP TABLE IF EXISTS `permisos`;
@@ -43,6 +71,24 @@ CREATE TABLE `permisos` (
 /*Data for the table `permisos` */
 
 insert  into `permisos`(`id_usuario`,`id_permiso`) values (1,3),(2,1),(2,2);
+
+/*Table structure for table `productos` */
+
+DROP TABLE IF EXISTS `productos`;
+
+CREATE TABLE `productos` (
+  `id_producto` int(11) NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(20) DEFAULT NULL,
+  `descripcion` varchar(200) DEFAULT NULL,
+  `precio` decimal(18,2) DEFAULT '0.00',
+  `existencias` int(11) DEFAULT '0',
+  PRIMARY KEY (`id_producto`),
+  UNIQUE KEY `UK_COD` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+/*Data for the table `productos` */
+
+insert  into `productos`(`id_producto`,`codigo`,`descripcion`,`precio`,`existencias`) values (1,'A0100','Pantalón de vestir Yale','250.00',20),(2,'FK010','Camisa de manga larga ','300.00',10),(3,'MX200','Falda uniforme escolar','150.00',8),(4,'AB122','Camisa blanca uniforme','100.00',5),(5,'XD302','Calcetas escolares','50.00',12);
 
 /*Table structure for table `usuarios` */
 
