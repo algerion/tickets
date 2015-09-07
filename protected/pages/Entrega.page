@@ -1,0 +1,16 @@
+<%@ MasterClass="Application.layouts.MainLayout" Title="Entrega de mercancía" %>
+<com:TContent ID="Main">
+	<div align="center">
+		<table width="50%" border="0">
+			<tr><td width="20%"></td><td width="70%"></td></tr>
+			<tr>
+				<td colspan="1">Nota:</td>
+				<td colspan="1"><com:TTextBox ID="txtNota" /></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><com:TButton ID="btnMostrar" Text="Mostrar nota de compra" OnClick="btnMostrar_Click" /></td>
+			</tr>
+		</table>
+		
+	</div>
+</com:TContent>
