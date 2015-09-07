@@ -130,8 +130,9 @@ class Registro extends TPage
 		$productos = $this->contenidoTabla($this->dgProductos);
 		if(count($productos) > 0)
 		{
-			Conexion::Inserta_Registro($this->dbConexion, "notas",  array("generada"=>date("Y-m-d H:i:s")));
-			$id_nota =  Conexion::Ultimo_Id_Generado($this->dbConexion);
+			Conexion::Inserta_Registro($this->dbConexion, "notas",  array("generada"=>date("Y-m-d H:i:s"), "id_usuario"=>$this->User->Id, "id_status"=>1));
+			$id_nota = Conexion::Ultimo_Id_Generado($this->dbConexion);
+			$total = 0;
 			
 			foreach($productos as $prod)
 			{
@@ -141,10 +142,12 @@ class Registro extends TPage
 					Conexion::Inserta_Registro($this->dbConexion, "notas_productos",  
 							array("id_nota"=>$id_nota, "id_producto"=>$id_producto, 
 							"cantidad"=>$prod[$this->columnas[2]], "precio"=>$prod[$this->columnas[3]]));
+					$total += $prod[$this->columnas[4]];
 				}
 			}
 			$this->getClientScript()->registerBeginScript("guardado",
-					"alert('Información almacenada correctamente');\n" . 
+					"alert('Se ha generado nota " . $id_nota . " por un total de $" . $total . "');\n" . 
+					"open('index.php?page=nota&popup=2&nota=" . $id_nota . "', 'nota', 'width=200px, height=200px');\n" . 
 					"document.location.href = 'index.php?page=registro';\n");
 		}
 		else
