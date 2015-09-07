@@ -16,9 +16,9 @@ class cambiapass extends TPage
 	public function btnAceptar_Clicked($sender, $param)
 	{
 		$parametros = array("acceso"=>md5(strtoupper($this->txtAcceso->getText())));
-		$busqueda = array("id_usuario"=>$this->User->Name, "acceso"=>md5(strtoupper(
+		$busqueda = array("id_usuario"=>$this->User->Id, "acceso"=>md5(strtoupper(
 				$this->txtOldAcceso->getText())));
-		if(Conexion::Actualiza_Registro($this->dbConexion, "cat_aut_00_usuarios", $parametros, $busqueda))
+		if(Conexion::Actualiza_Registro($this->dbConexion, "usuarios", $parametros, $busqueda))
 			$this->getClientScript()->registerBeginScript("exito",
 				"alert('Se ha modificado el password del usuario.');\n");
 		else
