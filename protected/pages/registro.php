@@ -17,7 +17,9 @@ class Registro extends TPage
 
 		if(!$this->IsPostBack)
 		{
-			$this->txtVendedor->Text = $this->User->Name;
+			$vendedores = Conexion::Retorna_Registro($this->dbConexion, "vendedores", array("activo"=>1));
+			$this->ddlVendedor->DataSource = $vendedores;
+			$this->ddlVendedor->dataBind();
 			$this->dgProductos->DataSource = array();
 			$this->dgProductos->dataBind();
 		}

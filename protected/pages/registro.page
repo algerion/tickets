@@ -9,7 +9,7 @@
 			<tr><td width="20%"></td><td width="30%"></td><td width="50%"></td></tr>
 			<tr>
 				<td colspan="1">Vendedor:</td>
-				<td colspan="2"><com:TTextBox ID="txtVendedor" ReadOnly="True" Width="300px" /></td>
+				<td colspan="2"><com:TDropDownList ID="ddlVendedor" DataTextField="nombre" DataValueField="id_vendedor" /></td>
 			</tr>
 			<tr><td colspan="3">&nbsp</td></tr>
 			<tr>
@@ -33,6 +33,7 @@
 				</prop:EmptyTemplate>
 			</com:TDataGrid>
 		</com:TActivePanel>
+		
 		<com:TButton ID="btnGuardar" Text="Guardar" OnClick="btnGuardar_Click" Attributes.onclick="open('', 'nota', 'width=200px, height=600px')" />
 	</div>
 </com:TContent>
