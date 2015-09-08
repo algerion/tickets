@@ -18,9 +18,6 @@ class Registro extends TPage
 		if(!$this->IsPostBack)
 		{
 			$this->txtVendedor->Text = $this->User->Name;
-			$this->txtFecha->Text = date("d-m-Y");
-			$this->txtHora->Text = date("H:i:s");
-			$this->txtGenerales->Text = "Datos de la empresa";
 			$this->dgProductos->DataSource = array();
 			$this->dgProductos->dataBind();
 		}
@@ -45,12 +42,6 @@ class Registro extends TPage
 							array("Existencias del producto insuficientes. Sólo contamos con " . $producto[0]["existencias"] . " unidades."));
 				else*/
 				{
-/*					if(!strcmp($this->txtCodigo->Text, "VALE"))
-					{
-						$producto[0]["precio"] = -$this->txtCantidad->Text;
-						$this->txtCantidad->Text = 1;
-					}*/
-					
 					$total_productos = 0;
 					$total_a_pagar = 0;
 					$cantidad = 0;
