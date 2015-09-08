@@ -15,8 +15,8 @@ require_once('../compartidos/clases/HMAC.php');
 class Usuario extends TDbUser
 {
 	var $hmac;
-	var $tabla = "usuarios", $login = "usuario", $pass = "acceso", $id_usuario = "id_usuario", $nombre = "nombre";
-	var  $id_permiso = "id_permiso", $permiso = "permiso", $roles = "permisos", $lista = "lista_permisos";
+	var $tabla = "usuarios", $login = "usuario", $pass = "acceso", $id_usuario = "id_usuario", $nombre = "usuario";
+	var  $id_permiso = "id_permiso", $permiso = "permiso", $roles = "usuarios_permisos", $lista = "permisos";
 
     /**
      * Crea un objeto Usuario basado en el nombre de usuario especificado
