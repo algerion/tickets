@@ -2,38 +2,109 @@
 <com:TContent ID="Cabeceras">
 	<com:TClientScript ID="cscr" ScriptUrl="../compartidos/js/comun.js" />
 	<com:TStyleSheet ID="stylshtgrid" StyleSheetUrl="../compartidos/css/grids.css" />
+	<script>
+		var vendedor;
+		
+		function cambio_vendedor(lista_vendedores)
+		{
+			tabla = document.getElementById("ctl0_Main_dgProductos").innerHTML;
+			if(tabla.trim() != "No se han agregado productos")
+				if(!confirm("¿Realmente desea cambiar el vendedor?"))
+					lista_vendedores.value = vendedor;
+		}
+
+		function calcula_total()
+		{
+			var subtotal = document.getElementById("ctl0_Main_txtSubtotal").value;
+			var vales = document.getElementById("ctl0_Main_txtVales").value;
+			var descuento_vale = document.getElementById("ctl0_Main_txtDescVales").value;
+			var descuento = document.getElementById("ctl0_Main_txtDescuento").value;
+			var total = ((subtotal - vales * descuento_vale) * (1 - descuento / 100)).toFixed(2);
+			
+			document.getElementById("ctl0_Main_txtTotal").value = total;
+		}
+	</script>
 </com:TContent>
 <com:TContent ID="Main">
 	<div align="center">
-		<table width="50%" border="0">
+		<table border="1">
 			<tr><td width="20%"></td><td width="30%"></td><td width="50%"></td></tr>
 			<tr>
-				<td colspan="1">Vendedor:</td>
-				<td colspan="2"><com:TDropDownList ID="ddlVendedor" DataTextField="nombre" DataValueField="id_vendedor" /></td>
+				<td colspan="1" align="right">Vendedor:</td>
+				<td colspan="2">
+					<com:TActiveDropDownList ID="ddlVendedor" 
+							DataTextField="nombre" DataValueField="id_vendedor" 
+							Attributes.onclick="vendedor = this.value" 
+							Attributes.onchange="cambio_vendedor(this)" />
+				</td>
 			</tr>
 			<tr><td colspan="3">&nbsp</td></tr>
 			<tr>
-				<td colspan="2">Código:</td>
-				<td colspan="1">Cantidad:</td>
+				<td colspan="2" align="center">Código:</td>
+				<td colspan="1" align="center">Cantidad:</td>
 			</tr>
 			<tr>
-				<td colspan="2"><com:TActiveTextBox ID="txtCodigo" /></td>
-				<td colspan="1"><com:TActiveTextBox ID="txtCantidad" /></td>
+				<td colspan="2" align="center"><com:TActiveTextBox ID="txtCodigo" /></td>
+				<td colspan="1" align="center"><com:TActiveTextBox ID="txtCantidad" /></td>
 			</tr>
 			<tr align="center">
-				<td colspan="3"><com:TActiveButton ID="btnAgregar" Text="Agregar" OnCallback="btnAgregar_Callback" /></td>
+				<td colspan="3">
+					<com:TActiveButton ID="btnAgregar" Text="Agregar" OnCallback="btnAgregar_Callback" />
+					<!-- c om:TButton ID="btnAgregar2" Text="Agregar" OnClick="btnAgregar_Callback" / -->
+				</td>
 			</tr>
+			<tr><td colspan="3">&nbsp;</td></tr>
 		</table>
-		<br />
+
 		<com:TActivePanel ID="pnlProductos">
 			<com:TDataGrid ID="dgProductos" HeaderStyle.CssClass="encab" ItemStyle.CssClass="filapar" 
-					AlternatingItemStyle.CssClass="filaimpar">
+					AlternatingItemStyle.CssClass="filaimpar" OnDeleteCommand="deleteItem">
 				<prop:EmptyTemplate>
 					<com:TLiteral Text="No se han agregado productos" />
 				</prop:EmptyTemplate>
 			</com:TDataGrid>
 		</com:TActivePanel>
-		
-		<com:TButton ID="btnGuardar" Text="Guardar" OnClick="btnGuardar_Click" Attributes.onclick="open('', 'nota', 'width=200px, height=600px')" />
+
+		<table border="1">
+			<tr>
+				<td colspan="1" align="right">Subtotal:</td>
+				<td colspan="1">
+					<com:TActiveTextBox ID="txtSubtotal" Width="100px" Text="0" ReadOnly="True" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1" align="right">Descuento por vale:</td>
+				<td colspan="1"><com:TTextBox ID="txtDescVales" Width="100px" ReadOnly="True" /></td>
+			</tr>
+			<tr>
+				<td colspan="1" align="right">Número de vales:</td>
+				<td colspan="1">
+					<com:TTextBox ID="txtVales" Width="100px" Attributes.onkeyup="calcula_total()" 
+							Attributes.onchange="calcula_total()" />
+					<com:TDataTypeValidator ControlToValidate="txtVales" DataType="Integer" 
+							ErrorMessage="Debe introducir un número entero" Text="*" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1" align="right">Descuento sugerido:</td>
+				<td colspan="1">
+					<com:TTextBox ID="txtDescuento" Width="100px" Attributes.onkeyup="calcula_total()" 
+							Attributes.onchange="calcula_total()" />%
+					<com:TDataTypeValidator ControlToValidate="txtDescuento" DataType="Float" 
+							ErrorMessage="Debe introducir un número" Text="*" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1" align="right">Total:</td>
+				<td colspan="1"><com:TTextBox ID="txtTotal" Width="100px" Text="0" ReadOnly="True" /></td>
+			</tr>
+			<tr align="center">
+				<td colspan="2">
+					<com:TButton ID="btnGuardar" Text="Guardar" OnClick="btnGuardar_Click" 
+							Attributes.onclick="open('', 'nota', 'width=200px, height=600px')" />
+				</td>
+			</tr>
+		</table>
 	</div>
+	<com:TValidationSummary ShowMessageBox="true" ShowSummary="false" />
 </com:TContent>
