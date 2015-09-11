@@ -1,0 +1,30 @@
+<%@ MasterClass="Application.layouts.MainLayout" Title="Entrega de mercancía" %>
+<com:TContent ID="Main">
+	<div align="center">
+		<table width="50%" border="1">
+			<tr><td width="50%"></td><td width="50%"></td></tr>
+			<tr>
+				<td colspan="2">Código:</td>
+			</tr>
+			<tr>
+				<td colspan="1">Código:</td>
+				<td colspan="1"><com:TTextBox ID="txtVendedor" ReadOnly="True" Width="300px" /></td>
+			</tr>
+			<tr>
+				<td colspan="1">Fecha:</td>
+				<td colspan="1"><com:TTextBox ID="txtFecha" ReadOnly="True" Width="200px" /></td>
+			</tr>
+			<tr>
+				<td colspan="1">Hora:</td>
+				<td colspan="1"><com:TTextBox ID="txtHora" ReadOnly="True" Width="200px" /></td>
+			</tr>
+			<tr>
+				<td colspan="1">Generales:</td>
+				<td colspan="1"><com:TTextBox ID="txtGenerales" ReadOnly="True" Width="300px" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><com:TButton ID="btnEntregado" Text="Entregado" OnClick="btnEntregado_Click" /></td>
+			</tr>
+		</table>
+	</div>
+</com:TContent>
