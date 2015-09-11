@@ -19,6 +19,7 @@
 			var vales = document.getElementById("ctl0_Main_txtVales").value;
 			var descuento_vale = document.getElementById("ctl0_Main_txtDescVales").value;
 			var descuento = document.getElementById("ctl0_Main_txtDescuento").value;
+//			alert(subtotal + " " + vales + " " + descuento_vale + " " + descuento);
 			var total = ((subtotal - vales * descuento_vale) * (1 - descuento / 100)).toFixed(2);
 			
 			document.getElementById("ctl0_Main_txtTotal").value = total;
@@ -58,10 +59,12 @@
 
 		<com:TActivePanel ID="pnlProductos">
 			<com:TDataGrid ID="dgProductos" HeaderStyle.CssClass="encab" ItemStyle.CssClass="filapar" 
-					AlternatingItemStyle.CssClass="filaimpar" OnDeleteCommand="deleteItem">
+					AlternatingItemStyle.CssClass="filaimpar" OnDeleteCommand="borrar_fila">
 				<prop:EmptyTemplate>
 					<com:TLiteral Text="No se han agregado productos" />
 				</prop:EmptyTemplate>
+				<com:TButtonColumn ID="ibcDelete" ButtonType="ImageButton" 
+						ImageUrl="images/borrar.gif" CommandName="delete" />
 			</com:TDataGrid>
 		</com:TActivePanel>
 
@@ -96,7 +99,7 @@
 			</tr>
 			<tr>
 				<td colspan="1" align="right">Total:</td>
-				<td colspan="1"><com:TTextBox ID="txtTotal" Width="100px" Text="0" ReadOnly="True" /></td>
+				<td colspan="1"><com:TTextBox ID="txtTotal" Width="100px" ReadOnly="True" /></td>
 			</tr>
 			<tr align="center">
 				<td colspan="2">

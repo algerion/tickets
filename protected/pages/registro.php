@@ -1,5 +1,5 @@
 <?php
-Prado::using('System.Util.*'); //TVarDump
+Prado::using('System.Util.*'); //TVarDumper
 Prado::using('System.Web.UI.ActiveControls.*');
 include_once('../compartidos/clases/conexion.php');
 
@@ -28,10 +28,15 @@ class Registro extends TPage
 	
 	public function btnAgregar_Callback($sender, $param)
 	{
+		$this->genera_tabla($sender, $param);
+	}
+	
+	public function genera_tabla($sender, $param)
+	{
 		if($this->is_positive_integer($this->txtCantidad->Text) /* || !strcmp($this->txtCodigo->Text, "VALE")*/)
 		{
 			$producto = Conexion::Retorna_Registro($this->dbConexion, "productos", array("codigo"=>$this->txtCodigo->Text));
-			$contenido = $this->contenidoTabla($this->dgProductos);
+			$contenido = $this->contenido_auto_columnas($this->dgProductos);
 			//$total = array_pop($contenido);
 			//$this->Page->CallbackClient->callClientFunction("msg", array($total[$this->columnas[4]] + $producto[0]["precio"] * $this->txtCantidad->Text));
 			/*if($total[$this->columnas[4]] + $producto[0]["precio"] * $this->txtCantidad->Text < 0)
@@ -46,8 +51,6 @@ class Registro extends TPage
 							array("Existencias del producto insuficientes. Sólo contamos con " . $producto[0]["existencias"] . " unidades."));
 				else*/
 				{
-					$total_productos = 0;
-					$total_a_pagar = 0;
 					$cantidad = 0;
 					for($i = 0; $i < count($contenido); $i++)
 					{
@@ -59,8 +62,6 @@ class Registro extends TPage
 							$contenido[$i][$this->columnas[4]] = 
 									number_format($contenido[$i][$this->columnas[3]] * $cantidad, 2);
 						}
-						$total_productos += $contenido[$i][$this->columnas[2]];
-						$total_a_pagar += $contenido[$i][$this->columnas[4]];
 					}
 
 					if($cantidad == 0)
@@ -71,11 +72,8 @@ class Registro extends TPage
 								$this->columnas[2]=>$this->txtCantidad->Text, 
 								$this->columnas[3]=>number_format($producto[0]["precio"], 2),
 								$this->columnas[4]=>number_format(($producto[0]["precio"] * $this->txtCantidad->Text), 2),
-								$this->columnas[5]=>"<img src='images/borrar.gif' alt='Borrar' />"
 						);
 						$contenido[] = $row;
-						$total_productos += $contenido[$i][$this->columnas[2]];
-						$total_a_pagar += $contenido[$i][$this->columnas[4]];
 					}
 					
 /*					$row = array(
@@ -86,12 +84,13 @@ class Registro extends TPage
 							$this->columnas[4]=>number_format($total_a_pagar, 2)
 					);
 					$contenido[] = $row;*/
-					$this->txtSubtotal->Text = number_format($total_a_pagar, 2);
+					
+					$this->escribe_subtotal($contenido);
 					$this->Page->CallbackClient->callClientFunction("calcula_total", array());
+
 
 					$this->dgProductos->DataSource = $contenido;
 					$this->dgProductos->dataBind();
-					//$this->dgProductos->CommandName="delete";
 					$this->txtCodigo->Text = "";
 					$this->txtCantidad->Text = "";
 					if($param != null)
@@ -108,30 +107,44 @@ class Registro extends TPage
 			$this->Page->CallbackClient->callClientFunction("msg", array("Introduzca una cantidad correcta"));
 		}
 	}
-	/*
-	public function itemCreated($sender,$param)
-    {
-        $item=$param->Item;
-        if($item->ItemType==='Item' || $item->ItemType==='AlternatingItem')
-        {
-			echo "X";
-			$this->Page->CallbackClient->callClientFunction("msg", array($item));
-            //$item->DeleteColumn->Button->Attributes->onclick='if(!confirm(\'Are you sure?\')) return false;';
-        }
-    }
-*/
-	public function contenidoTabla($datagrid)
+	
+	public function total_productos($contenido)
 	{
+		$productos = 0;
+		for($i = 0; $i < count($contenido); $i++)
+			$productos += $contenido[$i][$this->columnas[2]];
+		
+		return $productos;
+	}
+
+	public function total_a_pagar($contenido)
+	{
+		$pago = 0;
+		for($i = 0; $i < count($contenido); $i++)
+			$pago += $contenido[$i][$this->columnas[4]];
+		
+		return $pago;
+	}
+	
+	public function escribe_subtotal($contenido)
+	{
+		$subtotal = $this->total_a_pagar($contenido);
+		$this->txtSubtotal->Text = number_format($subtotal, 2);
+	}
+
+	public function contenido_auto_columnas($datagrid)
+	{
+		$cols = $datagrid->Columns->Count;
 		$contenido = array();
 		for($i = 0; $i < $datagrid->ItemCount; $i++)
 		{
 			$row = array();
 			for($j = 0; $j< $datagrid->AutoColumns->Count; $j++)
 				$row[$this->dgProductos->AutoColumns->ItemAt($j)->HeaderText] = 
-						$datagrid->Items->itemAt($i)->Cells->itemAt($j)->Text;
+						$datagrid->Items->itemAt($i)->Cells->itemAt($j + $cols)->Text;
 			$contenido[] = $row;
 		}
-		
+		//$this->Page->CallbackClient->callClientFunction("msg", array(TVarDumper::dump($contenido)));
 		return $contenido;
 	}
 	
@@ -145,9 +158,31 @@ class Registro extends TPage
 		return (is_numeric($numero) && $numero > 0);
 	}
 	
+	public function crear_fila($sender, $param)
+    {
+        $item=$param->Item;
+		
+        if($item->ItemType==='Item' || $item->ItemType==='AlternatingItem')
+        {
+            $item->ibcDelete->Button->Attributes->onclick = "if(!confirm('¿Desea borrar la fila?')) return false;";
+        }
+    }
+	
+	public function borrar_fila($sender, $param)
+	{
+		$contenido = $this->contenido_auto_columnas($this->dgProductos);
+		unset($contenido[$param->Item->ItemIndex]);
+		$this->dgProductos->DataSource = $contenido;
+		$this->dgProductos->dataBind();
+		$contenido = $this->contenido_auto_columnas($this->dgProductos);
+		$this->escribe_subtotal($contenido);
+		$this->getClientScript()->registerEndScript("escribe_total",
+				"calcula_total();\n");
+	}
+	
 	public function btnGuardar_Click($sender, $param)
 	{
-		$productos = $this->contenidoTabla($this->dgProductos);
+		$productos = $this->contenido_auto_columnas($this->dgProductos);
 		if(count($productos) > 0)
 		{
 			if($this->is_positive_integer($this->txtVales->Text) && $this->is_positive($this->txtDescuento->Text))
