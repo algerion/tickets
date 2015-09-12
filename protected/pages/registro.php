@@ -153,6 +153,16 @@ class Registro extends TPage
 		return ($this->is_positive($numero) && (!strstr($numero, ".")));
 	}
 	
+	public function is_positive_integer_or_empty($numero)
+	{
+		return ($this->is_positive_integer($numero) || (!strcmp($numero, "")));
+	}
+	
+	public function is_positive_or_empty($numero)
+	{
+		return ($this->is_positive($numero) || (!strcmp($numero, "")));
+	}
+	
 	public function is_positive($numero)
 	{
 		return (is_numeric($numero) && $numero > 0);
@@ -185,13 +195,14 @@ class Registro extends TPage
 		$productos = $this->contenido_auto_columnas($this->dgProductos);
 		if(count($productos) > 0)
 		{
-			if($this->is_positive_integer($this->txtVales->Text) && $this->is_positive($this->txtDescuento->Text))
+			if($this->is_positive_integer_or_empty($this->txtVales->Text) && 
+					$this->is_positive_or_empty($this->txtDescuento->Text))
 			{
 				$nueva_nota = array(
 						"vales"=>$this->txtVales->Text, 
 						"descuento"=>$this->txtDescuento->Text, 
 						"generada"=>date("Y-m-d H:i:s"), 
-						"id_usuario"=>$this->User->Id, 
+						"id_vendedor"=>$this->ddlVendedor->SelectedValue, 
 						"id_status"=>1);
 				Conexion::Inserta_Registro($this->dbConexion, "notas", $nueva_nota);
 				$id_nota = Conexion::Ultimo_Id_Generado($this->dbConexion);
@@ -211,7 +222,7 @@ class Registro extends TPage
 				}
 				$this->getClientScript()->registerBeginScript("guardado",
 						"alert('Se ha generado nota " . $id_nota . " por un total de $" . $total . "');\n" . 
-						"open('index.php?page=nota&popup=2&nota=" . $id_nota . "', 'nota', 'width=200px, height=200px');\n" . 
+						"open('index.php?page=nota&popup=2&nota=" . $id_nota . "', 'nota');\n" . 
 						"document.location.href = 'index.php?page=registro';\n");
 			}
 			else

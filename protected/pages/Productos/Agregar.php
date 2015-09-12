@@ -26,10 +26,18 @@ class Agregar extends TPage
 				"descripcion"=>$this->txtDescripcion->Text,
 				"precio"=>$this->txtPrecio->Text
 		);	
-		Conexion::Inserta_Registro($this->dbConexion, "productos", $nuevo_producto);
-		$this->getClientScript()->registerBeginScript("guardado",
-				"alert('Los datos del producto fueron guardados exitosamente.');\n" . 
-				"document.location.replace(document.location.href);\n");
+		if(Conexion::Retorna_Campo($this->dbConexion, "productos", "id_producto", array("codigo"=>$this->txtCodigo->Text)) == "")
+		{
+			Conexion::Inserta_Registro($this->dbConexion, "productos", $nuevo_producto);
+			$this->getClientScript()->registerBeginScript("guardado",
+					"alert('Los datos del producto fueron guardados exitosamente.');\n" . 
+					"document.location.replace(document.location.href);\n");
+		}
+		else
+		{
+			$this->getClientScript()->registerBeginScript("duplicado",
+					"alert('El código proporcionado ya existe.');\n");
+		}
 	}
 }
 ?>

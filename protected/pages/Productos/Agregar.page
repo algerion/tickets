@@ -1,26 +1,35 @@
 <%@ MasterClass="Application.layouts.MainLayout" Title="Agregar producto" %>
 <com:TContent ID="Main">
 	<div align="center">
-		<table width="50%" border="1">
-			<tr><td width="50%"></td><td width="50%"></td></tr>
+		<table border="0">
 			<tr>
 				<td colspan="2">A continuación escriba los datos del producto:</td>
 			</tr>
 			<tr>
 				<td colspan="1">Código:</td>
-				<td colspan="1"><com:TTextBox ID="txtCodigo" Width="300px" /></td>
+				<td colspan="1">
+					<com:TTextBox ID="txtCodigo" Width="200px" MaxLength="20" CausesValidation="False" />
+					<com:TRequiredFieldValidator ControlToValidate="txtCodigo" ErrorMessage="Introduzca el código del producto" Text="*" />
+				</td>
 			</tr>
 			<tr>
 				<td colspan="1">Descripción:</td>
-				<td colspan="1"><com:TTextBox ID="txtDescripcion" Width="400px" /></td>
+				<td colspan="1">
+					<com:TTextBox ID="txtDescripcion" Width="300px" MaxLength="200" CausesValidation="False" />
+					<com:TRequiredFieldValidator ControlToValidate="txtDescripcion" ErrorMessage="Introduzca la descripción del producto" Text="*" />
+				</td>
 			</tr>
 			<tr>
 				<td colspan="1">Precio:</td>
-				<td colspan="1"><com:TTextBox ID="txtPrecio" Width="200px" /></td>
+				<td colspan="1">
+					<com:TTextBox ID="txtPrecio" Width="150px" MaxLength="20" CausesValidation="False" />
+					<com:TRequiredFieldValidator ControlToValidate="txtPrecio" ErrorMessage="Introduzca el precio del producto" Text="*" />
+				</td>
 			</tr>
 			<tr>
-				<td colspan="2"><com:TButton ID="btnGuardar" Text="Guardar" OnClick="btnGuardar_Click" /></td>
+				<td colspan="2" align="center"><com:TButton ID="btnGuardar" Text="Guardar" OnClick="btnGuardar_Click" /></td>
 			</tr>
 		</table>
 	</div>
+	<com:TValidationSummary ShowMessageBox="true" ShowSummary="false" />
 </com:TContent>
