@@ -8,8 +8,9 @@
 	</MenuItem>
 	<MenuItem ID="smAdmin" Title="Administración">
 		<MenuItem ID="smAdmVendedores" Title="Vendedores" Url="index.php?page=vendedores" Description="Agregar nuevos vendedores y administrar los existentes" IdPag="vendedores" />
-		<MenuItem ID="smAdmProductos" Title="Productos" Url="index.php?page=productos" Description="Agregar y modificar productos" IdPag="productos" />
-		<MenuItem ID="smAdmPassword" Title="Cambiar password" Url="index.php?page=Usuarios.cambiapass" Description="Cambiar la contraseña del usuario" IdPag="password"/>
+		<MenuItem ID="smAdmProductos" Title="Productos" Description="Agregar y modificar productos" IdPag="productos">
+			<MenuItem ID="smAdmProdAgregar" Title="Agregar" Url="index.php?page=Productos.Agregar" Description="Agregar productos" />
+		</MenuItem>
 		<MenuItem ID="smAdmRestPass" Title="Restablecer contraseña" Url="index.php?page=restpass" Description="Restablecer contraseña de usuario" IdPag="rpas" />
 	</MenuItem>
 	<MenuItem ID="smSalir" Title="Salir" Url="index.php?page=Usuarios.Login&amp;action=Salir" />

@@ -1,0 +1,26 @@
+<%@ MasterClass="Application.layouts.MainLayout" Title="Agregar producto" %>
+<com:TContent ID="Main">
+	<div align="center">
+		<table width="50%" border="1">
+			<tr><td width="50%"></td><td width="50%"></td></tr>
+			<tr>
+				<td colspan="2">A continuación escriba los datos del producto:</td>
+			</tr>
+			<tr>
+				<td colspan="1">Código:</td>
+				<td colspan="1"><com:TTextBox ID="txtCodigo" Width="300px" /></td>
+			</tr>
+			<tr>
+				<td colspan="1">Descripción:</td>
+				<td colspan="1"><com:TTextBox ID="txtDescripcion" Width="400px" /></td>
+			</tr>
+			<tr>
+				<td colspan="1">Precio:</td>
+				<td colspan="1"><com:TTextBox ID="txtPrecio" Width="200px" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><com:TButton ID="btnGuardar" Text="Guardar" OnClick="btnGuardar_Click" /></td>
+			</tr>
+		</table>
+	</div>
+</com:TContent>

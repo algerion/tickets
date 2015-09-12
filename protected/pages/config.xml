@@ -6,6 +6,7 @@
 	<allow pages="registro, nota" roles="registro" />
 	<allow pages="cobranza, caja" roles="cobranza" />
 	<allow pages="entrega, paquetes" roles="entrega" />
+	<allow pages="Productos.Agregar" roles="productos" />
     <deny users="*" />
   </authorization>
 </configuration>
