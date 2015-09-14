@@ -116,8 +116,8 @@
 			</tr>
 			<tr align="center">
 				<td colspan="2">
-					<com:TButton ID="btnGuardar" Text="Guardar" OnClick="btnGuardar_Click" />
-							<!-- Attributes.onclick="open('', 'nota', 'width=400px; height=600px')" / -->
+					<com:TButton ID="btnGuardar" Text="Guardar" OnClick="btnGuardar_Click" 
+							Attributes.onclick="open('', 'nota', 'width=400px; height=600px')" />
 				</td>
 			</tr>
 		</table>
