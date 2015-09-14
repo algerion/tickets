@@ -1,0 +1,10 @@
+<%@ MasterClass="Application.layouts.MainLayout" Title="Lista de productos" %>
+<com:TContent ID="Main">
+	<div align="center">
+		<com:TTextBox ID="txtBusqueda" />
+		<com:TButton Text="Buscar" />
+		<br />
+		<com:TDataGrid ID="dgProductos" HeaderStyle.CssClass="encab" ItemStyle.CssClass="filapar" 
+				AlternatingItemStyle.CssClass="filaimpar" />
+	</div>
+</com:TContent>
