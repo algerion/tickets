@@ -19,6 +19,7 @@
  		<module id="users"
 			class="System.Security.TDbUserManager"
 			UserClass="Application.Pages.Usuarios.Usuario" ConnectionID="db" />
+		<module class="System.Data.ActiveRecord.TActiveRecordConfig" EnableCache="true" ConnectionID="db" />
 	</modules>
 	<parameters>
 		<parameter id="mailserver" value="192.168.1.9" />

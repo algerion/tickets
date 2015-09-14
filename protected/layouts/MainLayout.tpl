@@ -23,7 +23,7 @@
 						<com:TTableRow>
 							<com:TTableCell>
 								<com:TPanel ID="pnlEncabezado">
-									<com:TImage ImageUrl="images/banner.png" />
+									<!--com:TImage ImageUrl="images/banner.png" /-->
 								</com:TPanel>
 							</com:TTableCell>
 						</com:TTableRow>
@@ -60,7 +60,7 @@
 
 					<div id="footer">
 						<com:TTableRow>
-							<com:TTableCell Style="background-image:url(images/pie.png)" width="800" height="20" />
+							<!--com:TTableCell Style="background-image:url(images/pie.png)" width="800" height="20" /-->
 						</com:TTableRow>
 					</div>
 				</com:TTable>

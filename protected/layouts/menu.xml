@@ -10,6 +10,7 @@
 		<MenuItem ID="smAdmVendedores" Title="Vendedores" Url="index.php?page=vendedores" Description="Agregar nuevos vendedores y administrar los existentes" IdPag="vendedores" />
 		<MenuItem ID="smAdmProductos" Title="Productos" Description="Agregar y modificar productos" IdPag="productos">
 			<MenuItem ID="smAdmProdAgregar" Title="Agregar" Url="index.php?page=Productos.Agregar" Description="Agregar productos" />
+			<MenuItem ID="smAdmProdModificar" Title="Modificar" Url="index.php?page=Productos.Modificar" Description="Modificar productos" />
 		</MenuItem>
 		<MenuItem ID="smAdmRestPass" Title="Restablecer contraseña" Url="index.php?page=restpass" Description="Restablecer contraseña de usuario" IdPag="rpas" />
 	</MenuItem>
