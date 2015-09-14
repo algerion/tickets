@@ -55,7 +55,10 @@
 				<td colspan="1" align="center">Cantidad:</td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center"><com:TActiveTextBox ID="txtCodigo" /></td>
+				<td colspan="2" align="center">
+					<com:TActiveTextBox ID="txtCodigo" />
+					<a href="index.php?page=Productos.Ver&tipo=link" target="_blank">Buscar</a>
+				</td>
 				<td colspan="1" align="center"><com:TActiveTextBox ID="txtCantidad" /></td>
 			</tr>
 			<tr align="center">
