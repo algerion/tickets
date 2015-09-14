@@ -1,30 +1,24 @@
 <%@ MasterClass="Application.layouts.EmptyLayout" Title="Nota" %>
 <com:TContent ID="Main">
-	<div align="left">
-		<table width="500px" border="0">
-			<tr><td width="40%"></td><td width="80%"></td></tr>
-			<tr>
-				<td colspan="1" align="right">Nota:</td>
-				<td colspan="1"><com:TLabel ID="lblNota" /></td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center">
-					<com:TDataGrid ID="dgProductos" HeaderStyle.CssClass="encab" ItemStyle.CssClass="filapar" 
-							AlternatingItemStyle.CssClass="filaimpar">
-						<prop:EmptyTemplate>
-							<com:TLiteral Text="No se han agregado productos" />
-						</prop:EmptyTemplate>
-					</com:TDataGrid>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="1" align="right">Total a pagar:</td>
-				<td colspan="1"><com:TLabel ID="lblTotal" /></td>
-			</tr>
-		</table>
+	<style>
+		table
+		{
+			border-collapse: collapse;
+		}
+		td
+		{
+			border-collapse: collapse;
+			border: black 1px solid;
+		}
+	</style>
+	<div align="center">
+		Nota: <com:TLabel ID="lblNota" />
+		<com:TDataGrid ID="dgProductos" HeaderStyle.CssClass="encab" ItemStyle.CssClass="filaparlinea" 
+				AlternatingItemStyle.CssClass="filaimparlinea" BorderStyle="Solid" >
+			<prop:EmptyTemplate>
+				<com:TLiteral Text="No se han agregado productos" />
+			</prop:EmptyTemplate>
+		</com:TDataGrid>
+		Total a pagar: <com:TLabel ID="lblTotal" />
 	</div>
-	<script>
-		window.print();
-		//window.close();
-	</script>
 </com:TContent>

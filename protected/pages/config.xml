@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <authorization>
-    <allow pages="asunto" users="*" />
+    <allow pages="asunto, nota" users="*" />
     <allow pages="Home, Usuarios.cambiapass" users="@" />
-	<allow pages="registro, nota, Productos.Ver" roles="registro" />
+	<allow pages="registro, notapdf, Productos.Ver" roles="registro" />
 	<allow pages="cobranza, caja" roles="cobranza" />
 	<allow pages="entrega, paquetes" roles="entrega" />
 	<allow pages="Productos.Agregar, Productos.Modificar, Productos.Ver" roles="productos" />

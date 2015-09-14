@@ -15,7 +15,7 @@
 
 		function calcula_total()
 		{
-			var subtotal = document.getElementById("ctl0_Main_txtSubtotal").value;
+			var subtotal = document.getElementById("ctl0_Main_txtSubtotal").value.replace(",", "");
 			var vales = document.getElementById("ctl0_Main_txtVales").value;
 			var descuento_vale = document.getElementById("ctl0_Main_txtDescVales").value;
 			var descuento = document.getElementById("ctl0_Main_txtDescuento").value;

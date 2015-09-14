@@ -6,7 +6,7 @@ include_once('../compartidos/clases/conexion.php');
 class Registro extends TPage
 {
 	var $dbConexion;
-	var $columnas = array("Código", "Descripción", "Cantidad", "Precio", "Total", "Borrar");
+	var $columnas = array("Código", "Descripción", "Cantidad", "Precio", "Total");
 
 	public function onLoad($param)
 	{
@@ -120,9 +120,15 @@ class Registro extends TPage
 	public function total_a_pagar($contenido)
 	{
 		$pago = 0;
+		$salida = "";
 		for($i = 0; $i < count($contenido); $i++)
-			$pago += $contenido[$i][$this->columnas[4]];
-		
+		{
+			$pago += str_replace(",", "", $contenido[$i][$this->columnas[4]]);
+			$salida .= $pago . " ";
+		}
+		//$this->Page->CallbackClient->callClientFunction("msg", array(TVarDumper::dump($contenido)));
+
+		//$this->Page->CallbackClient->callClientFunction("msg", array($pago));
 		return $pago;
 	}
 	
@@ -206,7 +212,7 @@ class Registro extends TPage
 						"id_status"=>1);
 				Conexion::Inserta_Registro($this->dbConexion, "notas", $nueva_nota);
 				$id_nota = Conexion::Ultimo_Id_Generado($this->dbConexion);
-				$total = 0;
+				//$total = 0;
 				
 				foreach($productos as $prod)
 				{
@@ -217,12 +223,13 @@ class Registro extends TPage
 						Conexion::Inserta_Registro($this->dbConexion, "notas_productos",  
 								array("id_nota"=>$id_nota, "id_producto"=>$id_producto, 
 								"cantidad"=>$prod[$this->columnas[2]], "precio"=>$prod[$this->columnas[3]]));
-						$total += $prod[$this->columnas[4]];
+						//$total += $prod[$this->columnas[4]];
 					}
 				}
+				$total = $this->total_a_pagar($productos);
 				$this->getClientScript()->registerBeginScript("guardado",
 						"alert('Se ha generado nota " . $id_nota . " por un total de $" . $total . "');\n" . 
-						"open('index.php?page=nota&nota=" . $id_nota . "', 'nota');\n" . 
+						"open('index.php?page=notapdf&nota=" . $id_nota . "', 'nota');\n" . 
 						"document.location.href = 'index.php?page=registro';\n");
 //						"document.location.href = 'index.php?page=nota&nota=" . $id_nota . "';\n");
 			}
