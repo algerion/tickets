@@ -5,12 +5,14 @@
 		<MenuItem ID="smPagRegistro" Title="Registro de compra" Url="index.php?page=registro" Description="Registro de compra seleccionados por el cliente" IdPag="registro" />
 		<MenuItem ID="smPagCaja" Title="Cobranza" Url="index.php?page=cobranza" Description="Cobro de productos" IdPag="cobranza" />
 		<MenuItem ID="smPagEntrega" Title="Entrega" Url="index.php?page=entrega" Description="Entrega de productos" IdPag="entrega" />
+			<MenuItem ID="smPagProdVer" Title="Lista de productos" Url="index.php?page=Productos.Ver" Description="Ver productos" />
 	</MenuItem>
 	<MenuItem ID="smAdmin" Title="Administración">
 		<MenuItem ID="smAdmVendedores" Title="Vendedores" Url="index.php?page=vendedores" Description="Agregar nuevos vendedores y administrar los existentes" IdPag="vendedores" />
 		<MenuItem ID="smAdmProductos" Title="Productos" Description="Agregar y modificar productos" IdPag="productos">
 			<MenuItem ID="smAdmProdAgregar" Title="Agregar" Url="index.php?page=Productos.Agregar" Description="Agregar productos" />
 			<MenuItem ID="smAdmProdModificar" Title="Modificar" Url="index.php?page=Productos.Modificar" Description="Modificar productos" />
+			<MenuItem ID="smAdmProdVer" Title="Ver" Url="index.php?page=Productos.Ver" Description="Ver productos" />
 		</MenuItem>
 		<MenuItem ID="smAdmRestPass" Title="Restablecer contraseña" Url="index.php?page=restpass" Description="Restablecer contraseña de usuario" IdPag="rpas" />
 	</MenuItem>
