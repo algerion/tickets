@@ -222,8 +222,9 @@ class Registro extends TPage
 				}
 				$this->getClientScript()->registerBeginScript("guardado",
 						"alert('Se ha generado nota " . $id_nota . " por un total de $" . $total . "');\n" . 
-						"open('index.php?page=nota&popup=2&nota=" . $id_nota . "', 'nota');\n" . 
-						"document.location.href = 'index.php?page=registro';\n");
+//						"open('index.php?page=nota&nota=" . $id_nota . "', 'notas');\n" . 
+//						"document.location.href = 'index.php?page=registro';\n");
+						"document.location.href = 'index.php?page=nota&nota=" . $id_nota . "';\n");
 			}
 			else
 			{

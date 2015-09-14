@@ -22,13 +22,23 @@
 //			alert(subtotal + " " + vales + " " + descuento_vale + " " + descuento);
 			var total = ((subtotal - vales * descuento_vale) * (1 - descuento / 100)).toFixed(2);
 			
+			if(descuento != "")
+				document.getElementById("ctl0_Main_txtVales").disabled = true;
+			else
+				document.getElementById("ctl0_Main_txtVales").disabled = false;
+			
+			if(vales != "")
+				document.getElementById("ctl0_Main_txtDescuento").disabled = true;
+			else
+				document.getElementById("ctl0_Main_txtDescuento").disabled = false;
+
 			document.getElementById("ctl0_Main_txtTotal").value = total;
 		}
 	</script>
 </com:TContent>
 <com:TContent ID="Main">
 	<div align="center">
-		<table border="1">
+		<table border="0">
 			<tr><td width="20%"></td><td width="30%"></td><td width="50%"></td></tr>
 			<tr>
 				<td colspan="1" align="right">Vendedor:</td>
@@ -68,7 +78,7 @@
 			</com:TDataGrid>
 		</com:TActivePanel>
 
-		<table border="1">
+		<table border="0">
 			<tr>
 				<td colspan="1" align="right">Subtotal:</td>
 				<td colspan="1">
@@ -103,8 +113,8 @@
 			</tr>
 			<tr align="center">
 				<td colspan="2">
-					<com:TButton ID="btnGuardar" Text="Guardar" OnClick="btnGuardar_Click" 
-							Attributes.onclick="open('', 'nota')" />
+					<com:TButton ID="btnGuardar" Text="Guardar" OnClick="btnGuardar_Click" />
+							<!-- Attributes.onclick="open('', 'nota', 'width=400px; height=600px')" / -->
 				</td>
 			</tr>
 		</table>
