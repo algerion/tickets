@@ -23,13 +23,14 @@ class Caja extends TPage
 				{
 					if($nota[0]["id_status"] == 1)
 					{
-						$usuario = Conexion::Retorna_Campo($this->dbConexion, "usuarios", "nombre", array("id_usuario"=>$nota[0]["id_usuario"]));
+						$usuario = Conexion::Retorna_Campo($this->dbConexion, "vendedores", "nombre", array("id_vendedor"=>$nota[0]["id_vendedor"]));
 						$this->txtVendedor->Text = $usuario;
 						$this->txtFecha->Text = date("d-m-Y", strtotime($nota[0]["generada"]));
 						$this->txtHora->Text = date("H:i:s", strtotime($nota[0]["generada"]));
-						$this->txtGenerales->Text = "Datos de la empresa";
+						$this->txtPorcDesc->Text = $nota[0]["descuento"];
+						$this->txtNumVales->Text = $nota[0]["vales"];
 
-						$consulta = "SELECT p.Codigo, p.Descripcion, np.Cantidad, np.Precio, np.cantidad * np.precio AS Total " . 
+						$consulta = "SELECT /*p.Codigo,*/ p.Descripcion, np.Cantidad, np.Precio, np.cantidad * np.precio AS Total " . 
 								"FROM productos p JOIN notas_productos np ON p.id_producto = np.id_producto " .
 								"WHERE np.id_nota = :id_nota";
 						$comando = $this->dbConexion->createCommand($consulta);

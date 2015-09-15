@@ -15,34 +15,17 @@
 <com:TContent ID="Main">
 	<div align="center">
 		<table width="50%" border="0">
-			<tr><td width="20%"></td><td width="30%"></td><td width="50%"></td></tr>
 			<tr>
 				<td colspan="1">Vendedor:</td>
-				<td colspan="2"><com:TTextBox ID="txtVendedor" ReadOnly="True" Width="300px" /></td>
+				<td colspan="1"><com:TTextBox ID="txtVendedor" ReadOnly="True" Width="300px" /></td>
 			</tr>
 			<tr>
 				<td colspan="1">Fecha:</td>
-				<td colspan="2"><com:TTextBox ID="txtFecha" ReadOnly="True" Width="200px" /></td>
+				<td colspan="1"><com:TTextBox ID="txtFecha" ReadOnly="True" Width="200px" /></td>
 			</tr>
 			<tr>
 				<td colspan="1">Hora:</td>
-				<td colspan="2"><com:TTextBox ID="txtHora" ReadOnly="True" Width="200px" /></td>
-			</tr>
-			<tr>
-				<td colspan="1">Generales:</td>
-				<td colspan="2"><com:TTextBox ID="txtGenerales" ReadOnly="True" Width="300px" /></td>
-			</tr>
-			<tr>
-				<td colspan="1">Total:</td>
-				<td colspan="2"><com:TTextBox ID="txtTotal" ReadOnly="True" Width="200px" /></td>
-			</tr>
-			<tr>
-				<td colspan="1">Recibido:</td>
-				<td colspan="2"><com:TTextBox ID="txtRecibido" Width="200px" Attributes.onchange="cambio()" /></td>
-			</tr>
-			<tr>
-				<td colspan="1">Cambio:</td>
-				<td colspan="2"><com:TTextBox ID="txtCambio" ReadOnly="True" Width="200px" /></td>
+				<td colspan="1"><com:TTextBox ID="txtHora" ReadOnly="True" Width="200px" /></td>
 			</tr>
 		</table>
 		<br />
@@ -54,6 +37,55 @@
 				</prop:EmptyTemplate>
 			</com:TDataGrid>
 		</com:TActivePanel>
+		<br />
+		<table width="100%" border="0">
+			<tr>
+				<td colspan="1">Total compra:</td>
+				<td colspan="1"><com:TTextBox ID="txtTotal" ReadOnly="True" /></td>
+				<td colspan="1">Porcentaje de descuento:</td>
+				<td colspan="1"><com:TTextBox ID="txtPorcDesc" /></td>
+			</tr>
+			<tr>
+				<td colspan="1">Descuento:</td>
+				<td colspan="1"><com:TTextBox ID="txtDescuento" ReadOnly="True" Attributes.onchange="cambio()" /></td>
+				<td colspan="2"><input type="checkbox" />Agregar IVA:</td>
+			</tr>
+			<tr>
+				<td colspan="1">Total con descuento:</td>
+				<td colspan="1"><com:TTextBox ID="txtTotalDesc" ReadOnly="True" /></td>
+				<td colspan="1">Número de vales:</td>
+				<td colspan="1"><com:TTextBox ID="txtNumVales" /></td>
+			</tr>
+			<tr>
+				<td colspan="1">IVA:</td>
+				<td colspan="1"><com:TTextBox ID="txtIva" ReadOnly="True" Attributes.onchange="cambio()" /></td>
+				<td colspan="2">&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="1">Total + IVA:</td>
+				<td colspan="1"><com:TTextBox ID="txtTotalIva" ReadOnly="True" /></td>
+				<td colspan="2">&nbsp;</td>
+			</tr>
+		</table>
+		
+		<table border="0">
+			<tr>
+				<td colspan="1">Efectivo:</td>
+				<td colspan="1"><com:TTextBox ID="txtEfectivo" Width="200px" Attributes.onchange="cambio()" /></td>
+			</tr>
+			<tr>
+				<td colspan="1">Cheque:</td>
+				<td colspan="1"><com:TTextBox ID="txtCheque" Width="200px" Attributes.onchange="cambio()" /></td>
+			</tr>
+			<tr>
+				<td colspan="1">Vales:</td>
+				<td colspan="1"><com:TTextBox ID="txtVales" Width="200px" Attributes.onchange="cambio()" /></td>
+			</tr>
+			<tr>
+				<td colspan="1">Cambio:</td>
+				<td colspan="1"><com:TTextBox ID="txtCambio" ReadOnly="True" Width="200px" /></td>
+			</tr>
+		</table>
 		<com:TButton ID="btnPagar" Text="Pagar" OnClick="btnPagar_Click" />
 	</div>
 </com:TContent>
