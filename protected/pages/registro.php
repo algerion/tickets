@@ -205,8 +205,8 @@ class Registro extends TPage
 					$this->is_positive_or_empty($this->txtDescuento->Text))
 			{
 				$nueva_nota = array(
-						"vales"=>$this->txtVales->Text, 
-						"descuento"=>$this->txtDescuento->Text, 
+						"vales"=>($this->txtVales->Text == '' ? 0 : $this->txtVales->Text),
+						"descuento"=>($this->txtDescuento->Text == '' ? 0 : $this->txtDescuento->Text), 
 						"generada"=>date("Y-m-d H:i:s"), 
 						"id_vendedor"=>$this->ddlVendedor->SelectedValue, 
 						"id_status"=>1);
