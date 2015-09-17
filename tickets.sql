@@ -1,6 +1,6 @@
 /*
-SQLyog Community v10.1 
-MySQL - 5.5.34 : Database - ticket
+SQLyog Community v12.12 (32 bit)
+MySQL - 5.6.24 : Database - ticket
 *********************************************************************
 */
 
@@ -15,6 +15,25 @@ MySQL - 5.5.34 : Database - ticket
 CREATE DATABASE /*!32312 IF NOT EXISTS*/`ticket` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `ticket`;
+
+/*Table structure for table `cobros` */
+
+DROP TABLE IF EXISTS `cobros`;
+
+CREATE TABLE `cobros` (
+  `id_nota` int(11) NOT NULL,
+  `cobrada` datetime DEFAULT NULL,
+  `porcentaje_descuento` decimal(5,2) DEFAULT NULL,
+  `incluye_iva` tinyint(1) DEFAULT NULL,
+  `porcentaje_iva` decimal(10,2) DEFAULT NULL,
+  `numero_vales` int(11) DEFAULT NULL,
+  `importe_vale` decimal(10,2) DEFAULT NULL,
+  `efectivo` decimal(18,2) DEFAULT NULL,
+  `cheque` decimal(18,2) DEFAULT NULL,
+  PRIMARY KEY (`id_nota`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `cobros` */
 
 /*Table structure for table `notas` */
 
@@ -59,7 +78,7 @@ CREATE TABLE `parametros` (
 
 /*Data for the table `parametros` */
 
-insert  into `parametros`(`llave`,`valor`) values ('vale','194.98');
+insert  into `parametros`(`llave`,`valor`) values ('iva','16'),('vale','194.98');
 
 /*Table structure for table `permisos` */
 
@@ -133,7 +152,7 @@ CREATE TABLE `usuarios_permisos` (
 
 /*Data for the table `usuarios_permisos` */
 
-insert  into `usuarios_permisos`(`id_usuario`,`id_permiso`) values (1,3),(2,2),(2,5),(3,4);
+insert  into `usuarios_permisos`(`id_usuario`,`id_permiso`) values (1,3),(2,2),(3,3),(3,5);
 
 /*Table structure for table `vendedores` */
 
@@ -144,11 +163,9 @@ CREATE TABLE `vendedores` (
   `nombre` varchar(250) DEFAULT NULL,
   `activo` varchar(1) DEFAULT '1',
   PRIMARY KEY (`id_vendedor`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `vendedores` */
-
-insert  into `vendedores`(`id_vendedor`,`nombre`,`activo`) values (1,'Angel Augusto Bravo Sumano','1'),(2,'Enrique Castellanos Rodriguez','1'),(3,'Alfonso Sandoval Carballido','1');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
