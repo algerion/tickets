@@ -19,6 +19,8 @@
 				<com:TLiteral Text="No se han agregado productos" />
 			</prop:EmptyTemplate>
 		</com:TDataGrid>
+		Subtotal: <com:TLabel ID="lblSubtotal" /><br />
+		Descuento: <com:TLabel ID="lblDescuento" /><br />
 		Total a pagar: <com:TLabel ID="lblTotal" />
 	</div>
 </com:TContent>
