@@ -5,10 +5,44 @@
 	<script>
 		function cambio()
 		{
-			var total = document.getElementById("ctl0_Main_txtTotal").value;
-			var recibido = document.getElementById("ctl0_Main_txtRecibido").value;
+			var total = retorna_num(document.getElementById("ctl0_Main_txtTotal").value);
+			var porcdesc = retorna_num(document.getElementById("ctl0_Main_txtPorcDesc").value);
+			var coniva = document.getElementById("coniva").checked;
+			var porcentajeiva = retorna_num(document.getElementById("ctl0_Main_txtPorcentajeIva").value);
+			var numvales = retorna_num(document.getElementById("ctl0_Main_txtNumVales").value);
+			var importevale = retorna_num(document.getElementById("ctl0_Main_txtImporteVale").value);
+			var efectivo = retorna_num(document.getElementById("ctl0_Main_txtEfectivo").value);
+			var cheque = retorna_num(document.getElementById("ctl0_Main_txtCheque").value);
+
+			var totaldesc = total * (1 - porcdesc / 100);
+			var iva = 0;
+			var totaliva = totaldesc;
+			var vales = Math.abs(Math.round(numvales) * importevale);
+
+			var pagototal = parseFloat(efectivo) + parseFloat(cheque) + parseFloat(vales);
+			var cambio = 0;
+
+			if(coniva)
+			{
+				iva = totaldesc * porcentajeiva / 100;
+				totaliva += iva;
+			}
+
+			cambio = parseFloat(pagototal) - parseFloat(totaliva);
+
+			document.getElementById("ctl0_Main_txtDescuento").value = (total * porcdesc / 100).toFixed(2);
+			document.getElementById("ctl0_Main_txtTotalDesc").value = totaldesc.toFixed(2);
+			document.getElementById("ctl0_Main_txtIva").value = iva.toFixed(2);
+			document.getElementById("ctl0_Main_txtTotalIva").value = totaliva.toFixed(2);
+			document.getElementById("ctl0_Main_txtVales").value = vales.toFixed(2);
+			document.getElementById("ctl0_Main_txtPagoTotal").value = pagototal.toFixed(2);
 			
-			document.getElementById("ctl0_Main_txtCambio").value = recibido - total;
+			document.getElementById("ctl0_Main_txtCambio").value = cambio.toFixed(2);
+		}
+		
+		function retorna_num(valor)
+		{
+			return (isNaN(valor) || valor == '') ? 0 : valor;
 		}
 	</script>
 </com:TContent>
@@ -43,23 +77,25 @@
 				<td colspan="1">Total compra:</td>
 				<td colspan="1"><com:TTextBox ID="txtTotal" ReadOnly="True" /></td>
 				<td colspan="1">Porcentaje de descuento:</td>
-				<td colspan="1"><com:TTextBox ID="txtPorcDesc" /></td>
+				<td colspan="1"><com:TTextBox ID="txtPorcDesc" Attributes.onkeyup="cambio()" Attributes.onchange="cambio()" /></td>
 			</tr>
 			<tr>
 				<td colspan="1">Descuento:</td>
-				<td colspan="1"><com:TTextBox ID="txtDescuento" ReadOnly="True" Attributes.onchange="cambio()" /></td>
-				<td colspan="2"><input type="checkbox" />Agregar IVA:</td>
+				<td colspan="1"><com:TTextBox ID="txtDescuento" ReadOnly="True" /></td>
+				<td colspan="1">Número de vales:</td>
+				<td colspan="1"><com:TTextBox ID="txtNumVales" Attributes.onkeyup="cambio()" Attributes.onchange="cambio()" /></td>
 			</tr>
 			<tr>
 				<td colspan="1">Total con descuento:</td>
 				<td colspan="1"><com:TTextBox ID="txtTotalDesc" ReadOnly="True" /></td>
-				<td colspan="1">Número de vales:</td>
-				<td colspan="1"><com:TTextBox ID="txtNumVales" /></td>
+				<td colspan="1">Importe del vale:</td>
+				<td colspan="1"><com:TTextBox ID="txtImporteVale" ReadOnly="True" /></td>
 			</tr>
 			<tr>
 				<td colspan="1">IVA:</td>
-				<td colspan="1"><com:TTextBox ID="txtIva" ReadOnly="True" Attributes.onchange="cambio()" /></td>
-				<td colspan="2">&nbsp;</td>
+				<td colspan="1"><com:TTextBox ID="txtIva" ReadOnly="True" /></td>
+				<td colspan="1"><input id="coniva" type="checkbox" onchange="cambio()" />Agregar IVA:</td>
+				<td colspan="1"><com:TTextBox ID="txtPorcentajeIva" ReadOnly="True" Width="50px" />%</td>
 			</tr>
 			<tr>
 				<td colspan="1">Total + IVA:</td>
@@ -71,15 +107,19 @@
 		<table border="0">
 			<tr>
 				<td colspan="1">Efectivo:</td>
-				<td colspan="1"><com:TTextBox ID="txtEfectivo" Width="200px" Attributes.onchange="cambio()" /></td>
+				<td colspan="1"><com:TTextBox ID="txtEfectivo" Width="200px" Attributes.onkeyup="cambio()" Attributes.onchange="cambio()" /></td>
 			</tr>
 			<tr>
 				<td colspan="1">Cheque:</td>
-				<td colspan="1"><com:TTextBox ID="txtCheque" Width="200px" Attributes.onchange="cambio()" /></td>
+				<td colspan="1"><com:TTextBox ID="txtCheque" Width="200px" Attributes.onkeyup="cambio()" Attributes.onchange="cambio()" /></td>
 			</tr>
 			<tr>
 				<td colspan="1">Vales:</td>
-				<td colspan="1"><com:TTextBox ID="txtVales" Width="200px" Attributes.onchange="cambio()" /></td>
+				<td colspan="1"><com:TTextBox ID="txtVales" Width="200px" ReadOnly="True" /></td>
+			</tr>
+			<tr>
+				<td colspan="1">Pago total:</td>
+				<td colspan="1"><com:TTextBox ID="txtPagoTotal" Width="200px" ReadOnly="True" /></td>
 			</tr>
 			<tr>
 				<td colspan="1">Cambio:</td>
@@ -87,5 +127,8 @@
 			</tr>
 		</table>
 		<com:TButton ID="btnPagar" Text="Pagar" OnClick="btnPagar_Click" />
+		<script>
+			cambio();
+		</script>
 	</div>
 </com:TContent>

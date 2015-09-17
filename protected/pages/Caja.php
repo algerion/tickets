@@ -29,6 +29,8 @@ class Caja extends TPage
 						$this->txtHora->Text = date("H:i:s", strtotime($nota[0]["generada"]));
 						$this->txtPorcDesc->Text = $nota[0]["descuento"];
 						$this->txtNumVales->Text = $nota[0]["vales"];
+						$this->txtImporteVale->Text = Conexion::Retorna_Campo($this->dbConexion, "parametros", "valor", array("llave"=>"vale"));
+						$this->txtPorcentajeIva->Text = Conexion::Retorna_Campo($this->dbConexion, "parametros", "valor", array("llave"=>"iva"));
 
 						$consulta = "SELECT /*p.Codigo,*/ p.Descripcion, np.Cantidad, np.Precio, np.cantidad * np.precio AS Total " . 
 								"FROM productos p JOIN notas_productos np ON p.id_producto = np.id_producto " .
@@ -64,7 +66,7 @@ class Caja extends TPage
 	
 	public function btnPagar_Click($sender, $param)
 	{
-		if($this->txtRecibido->Text - $this->txtTotal->Text > 0)
+		if($this->txtEfectivo->Text - $this->txtTotal->Text > 0)
 		{
 			Conexion::Actualiza_Registro($this->dbConexion, "notas",  array("id_status"=>2), array("id_nota"=>$this->Request["nota"]));
 			$this->getClientScript()->registerBeginScript("guardado",
