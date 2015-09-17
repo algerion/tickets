@@ -7,7 +7,7 @@
 		{
 			var total = retorna_num(document.getElementById("ctl0_Main_txtTotal").value);
 			var porcdesc = retorna_num(document.getElementById("ctl0_Main_txtPorcDesc").value);
-			var coniva = document.getElementById("coniva").checked;
+			var coniva = document.getElementById("ctl0_Main_chkConIva").checked;
 			var porcentajeiva = retorna_num(document.getElementById("ctl0_Main_txtPorcentajeIva").value);
 			var numvales = retorna_num(document.getElementById("ctl0_Main_txtNumVales").value);
 			var importevale = retorna_num(document.getElementById("ctl0_Main_txtImporteVale").value);
@@ -94,7 +94,7 @@
 			<tr>
 				<td colspan="1">IVA:</td>
 				<td colspan="1"><com:TTextBox ID="txtIva" ReadOnly="True" /></td>
-				<td colspan="1"><input id="coniva" type="checkbox" onchange="cambio()" />Agregar IVA:</td>
+				<td colspan="1"><com:TCheckBox ID="chkConIva" Attributes.onchange="cambio()" />Agregar IVA:</td>
 				<td colspan="1"><com:TTextBox ID="txtPorcentajeIva" ReadOnly="True" Width="50px" />%</td>
 			</tr>
 			<tr>

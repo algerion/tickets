@@ -66,7 +66,32 @@ class Caja extends TPage
 	
 	public function btnPagar_Click($sender, $param)
 	{
-		if($this->txtEfectivo->Text - $this->txtTotal->Text > 0)
+		$total = $this->txtTotal->Text;
+		$porcdesc = $this->txtPorcDesc->Text;
+		$coniva = $this->chkConIva->Checked;
+		$porcentajeiva = $this->txtPorcentajeIva->Text;
+		$numvales = $this->txtNumVales->Text;
+		$importevale = $this->txtImporteVale->Text;
+		$efectivo = $this->txtEfectivo->Text;
+		$cheque = $this->txtCheque->Text;
+
+		$totaldesc = $total * (1 - $porcdesc / 100);
+		$iva = 0;
+		$totaliva = $totaldesc;
+		$vales = abs(round($numvales) * $importevale);
+
+		$pagototal = $efectivo + $cheque + $vales;
+		$cambio = 0;
+
+		if($coniva)
+		{
+			$iva = $totaldesc * $porcentajeiva / 100;
+			$totaliva += $iva;
+		}
+
+		$cambio = $pagototal - $totaliva;
+
+		if($cambio > 0)
 		{
 			Conexion::Actualiza_Registro($this->dbConexion, "notas",  array("id_status"=>2), array("id_nota"=>$this->Request["nota"]));
 			$this->getClientScript()->registerBeginScript("guardado",
