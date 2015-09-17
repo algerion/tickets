@@ -1,0 +1,12 @@
+<%@ MasterClass="Application.layouts.MainLayout" Title="Nota" %>
+<com:TContent ID="Main">
+	<div align="center">
+		Corte de caja para el día <com:TLabel ID="lblDia" />
+		<com:TDataGrid ID="dgCorte" HeaderStyle.CssClass="encab" ItemStyle.CssClass="filaparlinea" 
+				AlternatingItemStyle.CssClass="filaimparlinea" BorderStyle="Solid" GridLines="Both">
+			<prop:EmptyTemplate>
+				<com:TLiteral Text="No hay ventas registradas" />
+			</prop:EmptyTemplate>
+		</com:TDataGrid>
+	</div>
+</com:TContent>

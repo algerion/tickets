@@ -4,6 +4,7 @@
 	<MenuItem ID="smPagos" Title="Pagos">
 		<MenuItem ID="smPagRegistro" Title="Registro de compra" Url="index.php?page=registro" Description="Registro de compra seleccionados por el cliente" IdPag="registro" />
 		<MenuItem ID="smPagCaja" Title="Cobranza" Url="index.php?page=cobranza" Description="Cobro de productos" IdPag="cobranza" />
+		<MenuItem ID="smPagCorte" Title="Corte de caja" Url="index.php?page=corte" Description="Corte de caja" IdPag="cobranza" />
 		<MenuItem ID="smPagEntrega" Title="Entrega" Url="index.php?page=entrega" Description="Entrega de productos" IdPag="entrega" />
 			<MenuItem ID="smPagProdVer" Title="Lista de productos" Url="index.php?page=Productos.Ver" Description="Ver productos" />
 	</MenuItem>
