@@ -38,7 +38,17 @@
 			document.getElementById("ctl0_Main_txtPagoTotal").value = pagototal.toFixed(2);
 			
 			document.getElementById("ctl0_Main_txtCambio").value = cambio.toFixed(2);
-		}
+			
+			if(porcdesc > 0)
+				document.getElementById("ctl0_Main_txtNumVales").disabled = true;
+			else
+				document.getElementById("ctl0_Main_txtNumVales").disabled = false;
+
+			if(numvales > 0)
+				document.getElementById("ctl0_Main_txtPorcDesc").disabled = true;
+			else
+				document.getElementById("ctl0_Main_txtPorcDesc").disabled = false;
+			}
 		
 		function retorna_num(valor)
 		{

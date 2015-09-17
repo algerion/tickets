@@ -91,17 +91,25 @@ class Caja extends TPage
 
 		$cambio = $pagototal - $totaliva;
 
-		if($cambio > 0)
+		if($porcdesc > 0 && $numvales > 0)
 		{
-			Conexion::Actualiza_Registro($this->dbConexion, "notas",  array("id_status"=>2), array("id_nota"=>$this->Request["nota"]));
-			$this->getClientScript()->registerBeginScript("guardado",
-					"alert('Se ha registrado el pago de la nota.');\n" . 
-					"document.location.href = 'index.php?page=Cobranza';\n");
+			$this->getClientScript()->registerBeginScript("valesydescuento",
+					"alert('No puede introducir un porcentaje de descuento si el cliente trae vales.');\n");
 		}
 		else
 		{
-			$this->getClientScript()->registerBeginScript("guardado",
-					"alert('Favor de especificar el importe de pago.');\n");
+			if($cambio > 0)
+			{
+				Conexion::Actualiza_Registro($this->dbConexion, "notas",  array("id_status"=>2), array("id_nota"=>$this->Request["nota"]));
+				$this->getClientScript()->registerBeginScript("guardado",
+						"alert('Se ha registrado el pago de la nota.');\n" . 
+						"document.location.href = 'index.php?page=Cobranza';\n");
+			}
+			else
+			{
+				$this->getClientScript()->registerBeginScript("importedepago",
+						"alert('Favor de especificar el importe de pago.');\n");
+			}
 		}
 	}
 }
