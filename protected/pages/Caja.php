@@ -66,12 +66,16 @@ class Caja extends TPage
 	
 	public function btnPagar_Click($sender, $param)
 	{
-		$total = $this->txtTotal->Text;
+		$total = Conexion::Retorna_Campo($this->dbConexion, "notas_productos", "SUM(cantidad * precio)", 
+				array("id_nota"=>$this->Request["nota"]));
 		$porcdesc = $this->txtPorcDesc->Text;
+
 		$coniva = $this->chkConIva->Checked;
-		$porcentajeiva = $this->txtPorcentajeIva->Text;
+		$porcentajeiva = Conexion::Retorna_Campo($this->dbConexion, "parametros", "valor", array("llave"=>"iva"));
+
 		$numvales = $this->txtNumVales->Text;
-		$importevale = $this->txtImporteVale->Text;
+		$importevale = Conexion::Retorna_Campo($this->dbConexion, "parametros", "valor", array("llave"=>"vale"));
+
 		$efectivo = $this->txtEfectivo->Text;
 		$cheque = $this->txtCheque->Text;
 
@@ -81,7 +85,6 @@ class Caja extends TPage
 		$vales = abs(round($numvales) * $importevale);
 
 		$pagototal = $efectivo + $cheque + $vales;
-		$cambio = 0;
 
 		if($coniva)
 		{
@@ -100,7 +103,20 @@ class Caja extends TPage
 		{
 			if($cambio > 0)
 			{
-				Conexion::Actualiza_Registro($this->dbConexion, "notas",  array("id_status"=>2), array("id_nota"=>$this->Request["nota"]));
+				Conexion::Actualiza_Registro($this->dbConexion, "notas",  array("id_status"=>2), 
+						array("id_nota"=>$this->Request["nota"]));
+				$cobro = array(
+						"id_nota"=>$this->Request["nota"],
+						"cobrada"=>date("Y-m-d H:i:s"), 
+						"porcentaje_descuento"=>$porcdesc,
+						"incluye_iva"=>$coniva,
+						"porcentaje_iva"=>$porcentajeiva,
+						"numero_vales"=>$numvales,
+						"importe_vale"=>$importevale,
+						"efectivo"=>$efectivo,
+						"cheque"=>$cheque
+				);
+				Conexion::Inserta_Registro($this->dbConexion, "cobros", $cobro);
 				$this->getClientScript()->registerBeginScript("guardado",
 						"alert('Se ha registrado el pago de la nota.');\n" . 
 						"document.location.href = 'index.php?page=Cobranza';\n");
