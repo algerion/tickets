@@ -10,17 +10,36 @@
 			border-collapse: collapse;
 			border: black 1px solid;
 		}
+		div
+		{
+			font-size: small;
+		}
+		
 	</style>
 	<div align="center">
-		Nota: <com:TLabel ID="lblNota" />
+		Comercial JID<br />
+		Distribuidor: Roc&iacute;o Garc&iacute;a Ram&iacute;rez<br />
+		R&eacute;gimen de incorporaci&oacute;n fiscal: Operaciones con el p&uacute;blico en general<br />
+		R.F.C. GARR860105V32 CURP: GARR860105MOCRMC01<br />
+		20 de Noviembre Nº 402-A Col. Centro. C.P. 68000 Oaxaca, Oax.<br /><br />
+
+		<strong>NOTA: <com:TLabel ID="lblNota" /></strong>
 		<com:TDataGrid ID="dgProductos" HeaderStyle.CssClass="encab" ItemStyle.CssClass="filaparlinea" 
 				AlternatingItemStyle.CssClass="filaimparlinea" BorderStyle="Solid" >
 			<prop:EmptyTemplate>
 				<com:TLiteral Text="No se han agregado productos" />
 			</prop:EmptyTemplate>
 		</com:TDataGrid>
-		Subtotal: <com:TLabel ID="lblSubtotal" /><br />
-		Descuento: <com:TLabel ID="lblDescuento" /><br />
-		Total a pagar: <com:TLabel ID="lblTotal" />
 	</div>
+<table width="200px" align="right">
+	<tr>
+		<td width="100px" align="left">Subtotal: </td><td width="100px" align="right"><com:TLabel ID="lblSubtotal" /></td>
+	</tr>
+	<tr>
+		<td align="left">Descuento: </td><td align="right"><com:TLabel ID="lblDescuento" /></td>
+	</tr>
+	<tr>
+		<td align="left">Total a pagar: </td><td align="right"><com:TLabel ID="lblTotal" /></td>
+	</tr>
+</table>
 </com:TContent>

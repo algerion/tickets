@@ -229,9 +229,9 @@ class Registro extends TPage
 				$total = $this->total_a_pagar($productos);
 				$this->getClientScript()->registerBeginScript("guardado",
 						"alert('Se ha generado nota " . $id_nota . " por un total de $" . $total . "');\n" . 
-						"open('index.php?page=notapdf&nota=" . $id_nota . "', 'nota');\n" . 
+						"open('index.php?page=ticketpdf&ticket=" . $id_nota . "', 'ticket');\n" . 
 						"document.location.href = 'index.php?page=registro';\n");
-//						"document.location.href = 'index.php?page=nota&nota=" . $id_nota . "';\n");
+//						"document.location.href = 'index.php?page=ticket&ticket=" . $id_nota . "';\n");
 			}
 			else
 			{
@@ -242,7 +242,7 @@ class Registro extends TPage
 		else
 		{
 			$this->getClientScript()->registerBeginScript("no_productos",
-					"alert('Debe insertar al menos un producto para generar la nota');\n");
+					"alert('Debe insertar al menos un producto para generar el ticket');\n");
 		}
 	}
 }

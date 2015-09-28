@@ -8,8 +8,8 @@ class Notapdf extends TPage
 		parent::onLoad($param);
 
 		usadompdf::creapdf("http://" . $_SERVER["HTTP_HOST"] 
-				. $_SERVER["PHP_SELF"] . "?page=nota&nota=" . 
-				$this->Request["nota"], "a5");
+				. $_SERVER["PHP_SELF"] . "?page=ticket&ticket=" . 
+				$this->Request["ticket"], "a5");
 	}
 }
 ?>

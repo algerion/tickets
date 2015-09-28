@@ -32,18 +32,8 @@ class Nota extends TPage
 					$descuento = $subtotal * $datos_nota[0]["descuento"] / 100;
 
 				$this->lblNota->Text = $this->Request["nota"];
-				$this->lblSubtotal->Text = $subtotal;
-				$this->lblDescuento->Text = $descuento;
-				$this->lblTotal->Text = $subtotal - $descuento;
+				$this->lblTotal->Text = $subtotal;
 				$this->Master->Page->Title = "Nota " . $this->Request["nota"];
-				$consulta = "SELECT p.Descripcion, np.Cantidad, np.Precio, np.cantidad * np.precio AS Total " . 
-						"FROM productos p JOIN notas_productos np ON p.id_producto = np.id_producto " .
-						"WHERE np.id_nota = :id_nota";
-				$comando = $this->dbConexion->createCommand($consulta);
-				$comando->bindValue(":id_nota", $this->Request["nota"]);
-				$resultado = $comando->query()->readAll();
-				$this->dgProductos->DataSource = $resultado;
-				$this->dgProductos->dataBind();
 			}
 		}
 	}

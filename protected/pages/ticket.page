@@ -1,0 +1,23 @@
+<%@ MasterClass="Application.layouts.EmptyLayout" Title="Nota" %>
+<com:TContent ID="Main">
+	<style>
+		table
+		{
+			border-collapse: collapse;
+		}
+		td
+		{
+			border-collapse: collapse;
+			border: black 1px solid;
+		}
+		div
+		{
+			font-size: small;
+		}
+		
+	</style>
+	<div align="center">
+		<strong>NOTA: <com:TLabel ID="lblNota" /></strong><br />
+		Total a pagar: <com:TLabel ID="lblTotal" />
+	</div>
+</com:TContent>
