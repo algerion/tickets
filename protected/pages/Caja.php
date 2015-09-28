@@ -109,7 +109,7 @@ class Caja extends TPage
 						"id_nota"=>$this->Request["nota"],
 						"cobrada"=>date("Y-m-d H:i:s"), 
 						"porcentaje_descuento"=>$porcdesc,
-						"incluye_iva"=>$coniva,
+						"incluye_iva"=>($coniva ? 1 : 0),
 						"porcentaje_iva"=>$porcentajeiva,
 						"numero_vales"=>$numvales,
 						"importe_vale"=>$importevale,
