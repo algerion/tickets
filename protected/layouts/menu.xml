@@ -6,7 +6,6 @@
 		<MenuItem ID="smPagCaja" Title="Cobranza" Url="index.php?page=cobranza" Description="Cobro de productos" IdPag="cobranza" />
 		<MenuItem ID="smPagCorte" Title="Corte de caja" Url="index.php?page=corte" Description="Corte de caja" IdPag="cobranza" />
 		<MenuItem ID="smPagEntrega" Title="Entrega" Url="index.php?page=entrega" Description="Entrega de productos" IdPag="entrega" />
-		<MenuItem ID="smPagCredito" Title="Creditos" Url="index.php?page=Creditos" Description="Creditos" IdPag="creditos" />
 		<MenuItem ID="smPagProdVer" Title="Lista de productos" Url="index.php?page=Productos.Ver" Description="Ver productos" IdPag="registro" />
 	</MenuItem>
 	<MenuItem ID="smAdmin" Title="Administración">
@@ -16,6 +15,8 @@
 			<MenuItem ID="smAdmProdModificar" Title="Modificar" Url="index.php?page=Productos.Modificar" Description="Modificar productos" />
 			<MenuItem ID="smAdmProdVer" Title="Ver" Url="index.php?page=Productos.Ver" Description="Ver productos" />
 		</MenuItem>
+		<MenuItem ID="smAdmClientes" Title="Clientes" Url="index.php?page=Clientes.Modificar" Description="Administrar clientes" IdPag="creditos" />
+		<MenuItem ID="smAdmDeposito" Title="Depósitos a cuenta" Url="index.php?page=Clientes.Deposito" Description="Depósitos a cuenta" IdPag="creditos" />
 		<MenuItem ID="smAdmRestPass" Title="Restablecer contraseña" Url="index.php?page=restpass" Description="Restablecer contraseña de usuario" IdPag="rpas" />
 	</MenuItem>
 	<MenuItem ID="smSalir" Title="Salir" Url="index.php?page=Usuarios.Login&amp;action=Salir" />

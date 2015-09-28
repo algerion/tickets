@@ -6,7 +6,7 @@
 	<allow pages="Registro, Notapdf, Productos.Ver" roles="registro" />
 	<allow pages="Cobranza, Caja, Corte, Vendedor" roles="cobranza" />
 	<allow pages="Entrega, Paquetes" roles="entrega" />
-	<allow pages="Creditos" roles="creditos" />
+	<allow pages="Clientes.Modificar, Clientes.Deposito" roles="creditos" />
 	<allow pages="Productos.Agregar, Productos.Modificar, Productos.Ver" roles="productos" />
     <deny users="*" />
   </authorization>
