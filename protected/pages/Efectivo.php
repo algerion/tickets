@@ -2,7 +2,7 @@
 
 include_once('../compartidos/clases/conexion.php');
 
-class Cobranza extends TPage
+class Efectivo extends TPage
 {
 	var $dbConexion;
 
@@ -23,9 +23,19 @@ class Cobranza extends TPage
 			
 	}
 	
-	public function btnMostrar_Click($sender, $param)
+	public function btnGuardar_Click($sender, $param)
 	{
-		$this->Response->redirect("index.php?page=Caja&nota=" . $this->txtNota->Text);
+		$this->dbConexion = Conexion::getConexion($this->Application, "db");
+		Conexion::createConfiguracion();
+		
+		$salida = $this->txtEfectivo->Text;
+		$salida = -$salida;
+		Conexion::Inserta_Registro($this->dbConexion, "movimientos",  
+				array("fecha"=>date("Y-m-d H:i:s"), 
+				"importe"=>$salida));
+				$this->getClientScript()->registerBeginScript("guardado",
+						"alert('Se ha guardado la salida de efectivo');\n" . 
+						"document.location.href = 'index.php?page=Efectivo';\n");
 	}
 }
 ?>

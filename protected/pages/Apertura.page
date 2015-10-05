@@ -1,0 +1,16 @@
+<%@ MasterClass="Application.layouts.MainLayout" Title="Apertura de caja" %>
+<com:TContent ID="Main">
+	<div align="center">
+		<table width="50%" border="0">
+			<tr><td width="30%"></td><td width="70%"></td></tr>
+			<tr>
+				<td colspan="1">Fondo revolvente:</td>
+				<td colspan="1"><com:TTextBox ID="txtFondo" /></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><com:TButton ID="btnGuardar" Text="Guardar" OnClick="btnGuardar_Click" /></td>
+			</tr>
+		</table>
+		
+	</div>
+</com:TContent>
