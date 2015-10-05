@@ -80,9 +80,9 @@ class Caja extends TPage
 		$adeudomax = Conexion::Retorna_Campo($this->dbConexion, "parametros", "valor", 
 				array("llave"=>"adeudomax"));
 				
-		$adeudo_total = $saldo_total - $credito_total;
+		$adeudo_total = $saldo_total - $credito_total - $credito;
 		
-		if($adeudo_total - $credito >= $adeudomax)
+		if($adeudo_total >= $adeudomax)
 		{
 			$total = Conexion::Retorna_Campo($this->dbConexion, "notas_productos", "SUM(cantidad * precio)", 
 					array("id_nota"=>$this->Request["nota"]));
@@ -153,9 +153,10 @@ class Caja extends TPage
 		{
 			$this->txtCredito->Text = "";
 			$this->getClientScript()->registerBeginScript("adeudomax",
-					"alert('El cliente tiene un adeudo actual de " . $adeudo_total . 
+					"alert('El cliente tiene un adeudo actual de " . $credito_total . 
+					", y un saldo a favor de  " . $saldo_total . 
 					", por lo que no puede concedérsele un crédito por " . $credito . 
-					". Consulte al administrador." . $id_cliente . "');\n");
+					". Consulte al administrador.');\n");
 		}
 	}
 }
