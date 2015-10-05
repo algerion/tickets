@@ -13,13 +13,14 @@
 			var importevale = retorna_num(document.getElementById("ctl0_Main_txtImporteVale").value);
 			var efectivo = retorna_num(document.getElementById("ctl0_Main_txtEfectivo").value);
 			var cheque = retorna_num(document.getElementById("ctl0_Main_txtCheque").value);
+			var credito = retorna_num(document.getElementById("ctl0_Main_txtCredito").value);
 
 			var totaldesc = total * (1 - porcdesc / 100);
 			var iva = 0;
 			var totaliva = totaldesc;
 			var vales = Math.abs(Math.round(numvales) * importevale);
-
-			var pagototal = parseFloat(efectivo) + parseFloat(cheque) + parseFloat(vales);
+			
+			var pagototal = parseFloat(efectivo) + parseFloat(cheque) + parseFloat(vales) + parseFloat(credito);
 			var cambio = 0;
 
 			if(coniva)
@@ -48,7 +49,32 @@
 				document.getElementById("ctl0_Main_txtPorcDesc").disabled = true;
 			else
 				document.getElementById("ctl0_Main_txtPorcDesc").disabled = false;
+
+			if(document.getElementById("ctl0_Main_ddlClientes").value != 0)
+			{
+				if(document.getElementById("ctl0_Main_ddlClientes").disabled == false && 
+						document.getElementById("ctl0_Main_txtCredito").disabled == true)
+				{
+					document.getElementById("ctl0_Main_txtCredito").value = (-cambio).toFixed(2);
+					document.getElementById("ctl0_Main_txtPagoTotal").value = totaliva.toFixed(2);
+					document.getElementById("ctl0_Main_txtCambio").value = 0.00;
+				}
+				document.getElementById("ctl0_Main_txtCredito").disabled = false;
 			}
+			else
+				document.getElementById("ctl0_Main_txtCredito").disabled = true;
+
+			if(document.getElementById("ctl0_Main_txtCredito").value == '')
+			{
+				document.getElementById("ctl0_Main_ddlClientes").disabled = false;
+				document.getElementById("buscaclientes").style.display = "initial";
+			}
+			else
+			{
+				document.getElementById("ctl0_Main_ddlClientes").disabled = true;
+				document.getElementById("buscaclientes").style.display = "none";
+			}
+		}
 		
 		function retorna_num(valor)
 		{
@@ -62,6 +88,13 @@
 			<tr>
 				<td colspan="1">Vendedor:</td>
 				<td colspan="1"><com:TTextBox ID="txtVendedor" ReadOnly="True" Width="300px" /></td>
+			</tr>
+			<tr>
+				<td colspan="1">Cliente:</td>
+				<td colspan="1">
+					<com:TDropDownList ID="ddlClientes" DataTextField="nombre" DataValueField="id_cliente" Attributes.onchange="cambio()" />
+					<a id="buscaclientes" href="index.php?page=Clientes.Ver&tipo=link" target="_blank">Buscar</a>
+				</td>
 			</tr>
 			<tr>
 				<td colspan="1">Fecha:</td>
@@ -128,6 +161,10 @@
 				<td colspan="1"><com:TTextBox ID="txtVales" Width="200px" ReadOnly="True" /></td>
 			</tr>
 			<tr>
+				<td colspan="1">Crédito:</td>
+				<td colspan="1"><com:TTextBox ID="txtCredito" Width="200px" Attributes.onkeyup="cambio()" Attributes.onchange="cambio()" /></td>
+			</tr>
+			<tr>
 				<td colspan="1">Pago total:</td>
 				<td colspan="1"><com:TTextBox ID="txtPagoTotal" Width="200px" ReadOnly="True" /></td>
 			</tr>
@@ -136,7 +173,7 @@
 				<td colspan="1"><com:TTextBox ID="txtCambio" ReadOnly="True" Width="200px" /></td>
 			</tr>
 		</table>
-		<com:TButton ID="btnPagar" Text="Pagar" OnClick="btnPagar_Click" />
+		<com:TButton ID="btnPagar" Text="Pagar" OnClick="btnPagar_Click" Attributes.onclick="document.getElementById('ctl0_Main_ddlClientes').disabled = false;"/>
 		<script>
 			cambio();
 		</script>

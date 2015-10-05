@@ -1,9 +1,15 @@
-<%@ MasterClass="Application.layouts.MainLayout" Title="Modificar Clientes" %>
+<%@ MasterClass="Application.layouts.MainLayout" Title="Depósitos a cuenta" %>
 <com:TContent ID="Main">
 	<div align="center">
 		<table border="0">
 			<tr>
-				<td colspan="1"><com:TScaffoldView RecordClass="Clientes" /></td>
+				<td colspan="1"><com:TDropDownList ID="ddlClientes" DataTextField="nombre" DataValueField="id_cliente" /><a href="index.php?page=Clientes.Ver&tipo=link" target="_blank">Buscar</a></td>
+			</tr>
+			<tr>
+				<td colspan="1"><com:TTextBox ID="txtDeposito"  Attributes.onkeyup="if(this.value != '') document.getElementById('ctl0_Main_ddlClientes').disabled = true; else document.getElementById('ctl0_Main_ddlClientes').disabled = false; "/></td>
+			</tr>
+			<tr>
+				<td colspan="1"><com:TButton ID="btnGuardar" Text="Guardar" OnClick="btnGuardar_Click" /></td>
 			</tr>
 		</table>
 	</div>

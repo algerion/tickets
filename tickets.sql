@@ -24,9 +24,11 @@ CREATE TABLE `clientes` (
   `id_cliente` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id_cliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `clientes` */
+
+insert  into `clientes`(`id_cliente`,`nombre`) values (1,'Cliente Número Uno'),(2,'Otro Nuevo Consumidor'),(3,'Tercer Comprador Añadido');
 
 /*Table structure for table `cobros` */
 
@@ -34,6 +36,7 @@ DROP TABLE IF EXISTS `cobros`;
 
 CREATE TABLE `cobros` (
   `id_nota` int(11) NOT NULL,
+  `id_cliente` int(11) DEFAULT NULL,
   `cobrada` datetime DEFAULT NULL,
   `porcentaje_descuento` decimal(5,2) DEFAULT NULL,
   `incluye_iva` tinyint(1) DEFAULT NULL,
@@ -48,8 +51,6 @@ CREATE TABLE `cobros` (
 
 /*Data for the table `cobros` */
 
-insert  into `cobros`(`id_nota`,`cobrada`,`porcentaje_descuento`,`incluye_iva`,`porcentaje_iva`,`numero_vales`,`importe_vale`,`efectivo`,`cheque`,`credito`) values (1,'2015-09-17 12:39:02','0.00',1,'16.00',2,'194.98','700.00','300.00',NULL);
-
 /*Table structure for table `depositos` */
 
 DROP TABLE IF EXISTS `depositos`;
@@ -60,9 +61,11 @@ CREATE TABLE `depositos` (
   `fecha` datetime DEFAULT NULL,
   `cantidad` decimal(18,2) DEFAULT NULL,
   PRIMARY KEY (`id_deposito`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `depositos` */
+
+insert  into `depositos`(`id_deposito`,`id_cliente`,`fecha`,`cantidad`) values (1,3,'2015-10-05 00:00:00','200000.00');
 
 /*Table structure for table `notas` */
 
@@ -80,7 +83,7 @@ CREATE TABLE `notas` (
 
 /*Data for the table `notas` */
 
-insert  into `notas`(`id_nota`,`vales`,`descuento`,`generada`,`id_vendedor`,`id_status`) values (1,2,0,'2015-09-17 12:35:11',3,2);
+insert  into `notas`(`id_nota`,`vales`,`descuento`,`generada`,`id_vendedor`,`id_status`) values (1,2,0,'2015-09-17 12:35:11',3,1);
 
 /*Table structure for table `notas_productos` */
 

@@ -5,7 +5,7 @@
 	<modules>
 		<!--module class="System.Util.TParameterModule" ParameterFile="Application.Settings.Parametros" /-->
 		<module class="System.Data.TDataSourceConfig" id="db">
-			<database ConnectionString="mysql:host=localhost;dbname=ticket" username="ticket" password="ticket" />
+			<database ConnectionString="mysql:host=localhost;dbname=ticket" username="ticket" password="ticket" charset="UTF8" />
 		</module>
 		<module class="System.I18N.TGlobalization" DefaultCharset="utf-8" />
 		<!-- module id="session" class="THttpSession" SessionName="SSID"

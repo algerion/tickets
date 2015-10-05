@@ -25,6 +25,10 @@ class Caja extends TPage
 					{
 						$usuario = Conexion::Retorna_Campo($this->dbConexion, "vendedores", "nombre", array("id_vendedor"=>$nota[0]["id_vendedor"]));
 						$this->txtVendedor->Text = $usuario;
+						$clientes = Conexion::Retorna_Registro($this->dbConexion, "clientes", array(), "1 = 1");
+						$clientes = array_merge(array(array("id_cliente"=>"0", "nombre"=>"Cliente genérico")), $clientes);
+						$this->ddlClientes->DataSource = $clientes;
+						$this->ddlClientes->dataBind();
 						$this->txtFecha->Text = date("d-m-Y", strtotime($nota[0]["generada"]));
 						$this->txtHora->Text = date("H:i:s", strtotime($nota[0]["generada"]));
 						$this->txtPorcDesc->Text = $nota[0]["descuento"];
@@ -66,66 +70,92 @@ class Caja extends TPage
 	
 	public function btnPagar_Click($sender, $param)
 	{
-		$total = Conexion::Retorna_Campo($this->dbConexion, "notas_productos", "SUM(cantidad * precio)", 
-				array("id_nota"=>$this->Request["nota"]));
-		$porcdesc = $this->txtPorcDesc->Text;
-
-		$coniva = $this->chkConIva->Checked;
-		$porcentajeiva = Conexion::Retorna_Campo($this->dbConexion, "parametros", "valor", array("llave"=>"iva"));
-
-		$numvales = $this->txtNumVales->Text;
-		$importevale = Conexion::Retorna_Campo($this->dbConexion, "parametros", "valor", array("llave"=>"vale"));
-
-		$efectivo = $this->txtEfectivo->Text;
-		$cheque = $this->txtCheque->Text;
-
-		$totaldesc = $total * (1 - $porcdesc / 100);
-		$iva = 0;
-		$totaliva = $totaldesc;
-		$vales = abs(round($numvales) * $importevale);
-
-		$pagototal = $efectivo + $cheque + $vales;
-
-		if($coniva)
+		$credito = $this->txtCredito->Text;
+		$id_cliente = $this->ddlClientes->SelectedValue;
+		
+		$credito_total = Conexion::Retorna_Campo($this->dbConexion, "cobros", "SUM(credito)", 
+				array("id_cliente"=>$id_cliente));
+		$saldo_total = Conexion::Retorna_Campo($this->dbConexion, "depositos", "SUM(cantidad)", 
+				array("id_cliente"=>$id_cliente));
+		$adeudomax = Conexion::Retorna_Campo($this->dbConexion, "parametros", "valor", 
+				array("llave"=>"adeudomax"));
+				
+		$adeudo_total = $saldo_total - $credito_total;
+		
+		if($adeudo_total - $credito >= $adeudomax)
 		{
-			$iva = $totaldesc * $porcentajeiva / 100;
-			$totaliva += $iva;
-		}
+			$total = Conexion::Retorna_Campo($this->dbConexion, "notas_productos", "SUM(cantidad * precio)", 
+					array("id_nota"=>$this->Request["nota"]));
+			$porcdesc = $this->txtPorcDesc->Text;
 
-		$cambio = $pagototal - $totaliva;
+			$coniva = $this->chkConIva->Checked;
+			$porcentajeiva = Conexion::Retorna_Campo($this->dbConexion, "parametros", "valor", array("llave"=>"iva"));
 
-		if($porcdesc > 0 && $numvales > 0)
-		{
-			$this->getClientScript()->registerBeginScript("valesydescuento",
-					"alert('No puede introducir un porcentaje de descuento si el cliente trae vales.');\n");
-		}
-		else
-		{
-			if($cambio > 0)
+			$numvales = $this->txtNumVales->Text;
+			$importevale = Conexion::Retorna_Campo($this->dbConexion, "parametros", "valor", array("llave"=>"vale"));
+
+			$efectivo = $this->txtEfectivo->Text;
+			$cheque = $this->txtCheque->Text;
+
+			$totaldesc = $total * (1 - $porcdesc / 100);
+			$iva = 0;
+			$totaliva = $totaldesc;
+			$vales = abs(round($numvales) * $importevale);
+
+			$pagototal = $efectivo + $cheque + $vales + $credito;
+
+			if($coniva)
 			{
-				Conexion::Actualiza_Registro($this->dbConexion, "notas",  array("id_status"=>2), 
-						array("id_nota"=>$this->Request["nota"]));
-				$cobro = array(
-						"id_nota"=>$this->Request["nota"],
-						"cobrada"=>date("Y-m-d H:i:s"), 
-						"porcentaje_descuento"=>$porcdesc,
-						"incluye_iva"=>($coniva ? 1 : 0),
-						"porcentaje_iva"=>$porcentajeiva,
-						"numero_vales"=>$numvales,
-						"importe_vale"=>$importevale,
-						"efectivo"=>$efectivo,
-						"cheque"=>$cheque
-				);
-				Conexion::Inserta_Registro($this->dbConexion, "cobros", $cobro);
-				$this->getClientScript()->registerBeginScript("guardado",
-						"alert('Se ha registrado el pago de la nota.');\n" . 
-						"document.location.href = 'index.php?page=Cobranza';\n");
+				$iva = $totaldesc * $porcentajeiva / 100;
+				$totaliva += $iva;
+			}
+
+			$cambio = $pagototal - $totaliva;
+
+			if($porcdesc > 0 && $numvales > 0)
+			{
+				$this->getClientScript()->registerBeginScript("valesydescuento",
+						"alert('No puede introducir un porcentaje de descuento si el cliente trae vales.');\n");
 			}
 			else
 			{
-				$this->getClientScript()->registerBeginScript("importedepago",
-						"alert('Favor de especificar el importe de pago.');\n");
+				if($cambio >= 0)
+				{
+					Conexion::Actualiza_Registro($this->dbConexion, "notas",  array("id_status"=>2), 
+							array("id_nota"=>$this->Request["nota"]));
+					$cobro = array(
+							"id_nota"=>$this->Request["nota"],
+							"id_cliente"=>$id_cliente,
+							"cobrada"=>date("Y-m-d H:i:s"), 
+							"porcentaje_descuento"=>$porcdesc,
+							"incluye_iva"=>($coniva ? 1 : 0),
+							"porcentaje_iva"=>$porcentajeiva,
+							"numero_vales"=>$numvales,
+							"importe_vale"=>$importevale,
+							"efectivo"=>$efectivo,
+							"cheque"=>$cheque,
+							"credito"=>$credito
+					);
+					Conexion::Inserta_Registro($this->dbConexion, "cobros", $cobro);
+					$this->getClientScript()->registerBeginScript("guardado",
+							"alert('Se ha registrado el pago de la nota.');\n" . 
+							"document.location.href = 'index.php?page=Cobranza';\n");
+				}
+				else
+				{
+					$this->txtCredito->Text = "";
+					$this->getClientScript()->registerBeginScript("importedepago",
+							"alert('Favor de especificar el importe de pago.');\n");
+				}
 			}
+		}
+		else
+		{
+			$this->txtCredito->Text = "";
+			$this->getClientScript()->registerBeginScript("adeudomax",
+					"alert('El cliente tiene un adeudo actual de " . $adeudo_total . 
+					", por lo que no puede concedérsele un crédito por " . $credito . 
+					". Consulte al administrador." . $id_cliente . "');\n");
 		}
 	}
 }
