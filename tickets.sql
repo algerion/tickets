@@ -23,12 +23,15 @@ DROP TABLE IF EXISTS `clientes`;
 CREATE TABLE `clientes` (
   `id_cliente` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(200) DEFAULT NULL,
+  `direccion` varchar(200) DEFAULT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
+  `poblacion` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_cliente`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `clientes` */
 
-insert  into `clientes`(`id_cliente`,`nombre`) values (1,'Cliente Número Uno'),(2,'Otro Nuevo Consumidor'),(3,'Tercer Comprador Añadido');
+insert  into `clientes`(`id_cliente`,`nombre`,`direccion`,`telefono`,`poblacion`) values (1,'Cliente Número Uno',NULL,NULL,NULL),(2,'Otro Nuevo Consumidor',NULL,NULL,NULL),(3,'Tercer Comprador Añadido',NULL,NULL,NULL);
 
 /*Table structure for table `cobros` */
 
@@ -51,6 +54,8 @@ CREATE TABLE `cobros` (
 
 /*Data for the table `cobros` */
 
+insert  into `cobros`(`id_nota`,`id_cliente`,`cobrada`,`porcentaje_descuento`,`incluye_iva`,`porcentaje_iva`,`numero_vales`,`importe_vale`,`efectivo`,`cheque`,`credito`) values (1,2,'2015-10-05 17:43:06','0.00',1,'16.00',2,'194.98','500.00','100.00','378.84');
+
 /*Table structure for table `depositos` */
 
 DROP TABLE IF EXISTS `depositos`;
@@ -66,6 +71,21 @@ CREATE TABLE `depositos` (
 /*Data for the table `depositos` */
 
 insert  into `depositos`(`id_deposito`,`id_cliente`,`fecha`,`cantidad`) values (1,3,'2015-10-05 00:00:00','200000.00');
+
+/*Table structure for table `movimientos` */
+
+DROP TABLE IF EXISTS `movimientos`;
+
+CREATE TABLE `movimientos` (
+  `id_movimiento` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha` datetime DEFAULT NULL,
+  `importe` decimal(18,2) DEFAULT NULL,
+  PRIMARY KEY (`id_movimiento`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+/*Data for the table `movimientos` */
+
+insert  into `movimientos`(`id_movimiento`,`fecha`,`importe`) values (1,'2015-10-05 17:41:25','15000.00'),(2,'2015-10-05 17:41:43','-200.00');
 
 /*Table structure for table `notas` */
 
@@ -83,7 +103,7 @@ CREATE TABLE `notas` (
 
 /*Data for the table `notas` */
 
-insert  into `notas`(`id_nota`,`vales`,`descuento`,`generada`,`id_vendedor`,`id_status`) values (1,2,0,'2015-09-17 12:35:11',3,1);
+insert  into `notas`(`id_nota`,`vales`,`descuento`,`generada`,`id_vendedor`,`id_status`) values (1,2,0,'2015-09-17 12:35:11',3,2);
 
 /*Table structure for table `notas_productos` */
 
@@ -114,7 +134,7 @@ CREATE TABLE `parametros` (
 
 /*Data for the table `parametros` */
 
-insert  into `parametros`(`llave`,`valor`) values ('adeudomax','-50000'),('correofact','angel.bravo@outlook.com'),('correorept','algerion1@hotmail.com'),('iva','16'),('revolvente','18900'),('vale','194.98');
+insert  into `parametros`(`llave`,`valor`) values ('adeudomax','-50000'),('cobrador','Rocío García Ramírez'),('correofact','angel.bravo@outlook.com'),('correorept','algerion1@hotmail.com'),('iva','16'),('lugar','Oaxaca de Juárez, Oax.'),('revolvente','18900'),('vale','194.98');
 
 /*Table structure for table `permisos` */
 
