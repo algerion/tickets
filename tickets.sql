@@ -1,6 +1,6 @@
 /*
-SQLyog Community v12.12 (32 bit)
-MySQL - 5.6.24 : Database - ticket
+SQLyog Community v10.1 
+MySQL - 5.5.34 : Database - ticket
 *********************************************************************
 */
 
@@ -54,7 +54,7 @@ CREATE TABLE `cobros` (
 
 /*Data for the table `cobros` */
 
-insert  into `cobros`(`id_nota`,`id_cliente`,`cobrada`,`porcentaje_descuento`,`incluye_iva`,`porcentaje_iva`,`numero_vales`,`importe_vale`,`efectivo`,`cheque`,`credito`) values (1,2,'2015-10-05 17:43:06','0.00',1,'16.00',2,'194.98','500.00','100.00','378.84');
+insert  into `cobros`(`id_nota`,`id_cliente`,`cobrada`,`porcentaje_descuento`,`incluye_iva`,`porcentaje_iva`,`numero_vales`,`importe_vale`,`efectivo`,`cheque`,`credito`) values (1,2,'2015-10-05 17:43:06','0.00',1,'16.00',2,'194.98','500.00','100.00','378.84'),(2,3,'2015-10-06 14:12:13','0.00',0,'16.00',0,'194.98','5000.00','0.00','23170.00'),(3,3,'2015-10-06 14:43:01','0.00',0,'16.00',0,'194.98','0.00','0.00','17150.00');
 
 /*Table structure for table `depositos` */
 
@@ -81,11 +81,11 @@ CREATE TABLE `movimientos` (
   `fecha` datetime DEFAULT NULL,
   `importe` decimal(18,2) DEFAULT NULL,
   PRIMARY KEY (`id_movimiento`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `movimientos` */
 
-insert  into `movimientos`(`id_movimiento`,`fecha`,`importe`) values (1,'2015-10-05 17:41:25','15000.00'),(2,'2015-10-05 17:41:43','-200.00');
+insert  into `movimientos`(`id_movimiento`,`fecha`,`importe`) values (1,'2015-10-05 17:41:25','15000.00'),(2,'2015-10-05 17:41:43','-200.00'),(3,'2015-10-06 14:11:12','18900.00');
 
 /*Table structure for table `notas` */
 
@@ -99,11 +99,11 @@ CREATE TABLE `notas` (
   `id_vendedor` int(11) DEFAULT NULL,
   `id_status` int(11) DEFAULT '1',
   PRIMARY KEY (`id_nota`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `notas` */
 
-insert  into `notas`(`id_nota`,`vales`,`descuento`,`generada`,`id_vendedor`,`id_status`) values (1,2,0,'2015-09-17 12:35:11',3,2);
+insert  into `notas`(`id_nota`,`vales`,`descuento`,`generada`,`id_vendedor`,`id_status`) values (1,2,0,'2015-09-17 12:35:11',3,2),(2,0,0,'2015-10-06 14:07:55',3,2),(3,0,0,'2015-10-06 14:09:04',1,2);
 
 /*Table structure for table `notas_productos` */
 
@@ -120,7 +120,7 @@ CREATE TABLE `notas_productos` (
 
 /*Data for the table `notas_productos` */
 
-insert  into `notas_productos`(`id_nota`,`id_producto`,`cantidad`,`precio`) values (1,2,2,'395.00'),(1,18,1,'200.00'),(1,21,2,'95.00');
+insert  into `notas_productos`(`id_nota`,`id_producto`,`cantidad`,`precio`) values (1,2,2,'395.00'),(1,18,1,'200.00'),(1,21,2,'95.00'),(2,5,30,'314.00'),(2,11,30,'365.00'),(2,14,30,'165.00'),(2,21,30,'95.00'),(3,11,20,'365.00'),(3,15,30,'183.00'),(3,19,20,'218.00');
 
 /*Table structure for table `pagares` */
 
@@ -136,9 +136,11 @@ CREATE TABLE `pagares` (
   `interes` decimal(8,2) DEFAULT NULL,
   `deudor` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id_pagare`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `pagares` */
+
+insert  into `pagares`(`id_pagare`,`id_nota`,`lugarfirma`,`fecha`,`cobrador`,`lugarcobro`,`interes`,`deudor`) values (1,2,'Oaxaca de Juárez, Oax.','2015-10-06','Rocío García Ramírez','Oaxaca de Juárez, Oax.','7.00','Tercer Comprador Añadido'),(4,3,'Oaxaca de Juárez, Oax.','2015-10-06','Rocío García Ramírez','Oaxaca de Juárez, Oax.','7.00','Tercer Comprador Añadido');
 
 /*Table structure for table `parametros` */
 

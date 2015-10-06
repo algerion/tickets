@@ -89,7 +89,7 @@ class Caja extends TPage
 		);
 		Conexion::Inserta_Registro($this->dbConexion, "pagares", $pagare);
 		$this->getClientScript()->registerBeginScript("pagare",
-				"open('index.php?page=Pagare&nota=" . $id_nota . "', 'pagare');\n");
+				"open('index.php?page=Pagarepdf&nota=" . $this->Request["nota"] . "', 'pagare');\n");
 		
 	}
 	
@@ -165,6 +165,7 @@ class Caja extends TPage
 					if($credito != "")
 						$this->guarda_pagare();
 					$this->getClientScript()->registerBeginScript("guardado",
+							"open('index.php?page=notapdf&nota=" . $this->Request["nota"] . "', 'nota');\n" . 
 							"alert('Se ha registrado el pago de la nota.');\n" . 
 							"document.location.href = 'index.php?page=Cobranza';\n");
 				}

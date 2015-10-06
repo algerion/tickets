@@ -3,7 +3,7 @@ Prado::using('System.Util.*'); //TVarDump
 Prado::using('System.Web.UI.ActiveControls.*');
 include_once('../compartidos/clases/conexion.php');
 
-class Nota extends TPage
+class Ticket extends TPage
 {
 	var $dbConexion;
 
@@ -16,12 +16,12 @@ class Nota extends TPage
 
 		if(!$this->IsPostBack)
 		{
-			if(isset($this->Request["nota"]))
+			if(isset($this->Request["ticket"]))
 			{
 				$subtotal = Conexion::Retorna_Campo($this->dbConexion, "notas_productos", 
-						"SUM(precio * cantidad)", array("id_nota"=>$this->Request["nota"]));
+						"SUM(precio * cantidad)", array("id_nota"=>$this->Request["ticket"]));
 				$datos_nota = Conexion::Retorna_Registro($this->dbConexion, "notas", 
-						array("id_nota"=>$this->Request["nota"]));
+						array("id_nota"=>$this->Request["ticket"]));
 				if($datos_nota[0]["vales"] > 0)
 				{
 					$vale = Conexion::Retorna_Campo($this->dbConexion, "parametros", 
@@ -31,9 +31,9 @@ class Nota extends TPage
 				else
 					$descuento = $subtotal * $datos_nota[0]["descuento"] / 100;
 
-				$this->lblNota->Text = $this->Request["nota"];
+				$this->lblNota->Text = $this->Request["ticket"];
 				$this->lblTotal->Text = $subtotal;
-				$this->Master->Page->Title = "Nota " . $this->Request["nota"];
+				$this->Master->Page->Title = "Nota " . $this->Request["ticket"];
 			}
 		}
 	}

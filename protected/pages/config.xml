@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <authorization>
-    <allow pages="asunto, nota" users="*" />
+    <allow pages="asunto, nota, pagare, ticket" users="*" />
     <allow pages="Home, Usuarios.cambiapass" users="@" />
-	<allow pages="Registro, Notapdf, Productos.Ver" roles="registro" />
-	<allow pages="Apertura, Cobranza, Caja, Pagare, Efectivo, Corte, Vendedor" roles="cobranza" />
+	<allow pages="Registro, Ticketpdf, Productos.Ver" roles="registro" />
+	<allow pages="Apertura, Cobranza, Caja, Notapdf, Pagarepdf, Efectivo, Corte, Vendedor" roles="cobranza" />
 	<allow pages="Entrega, Paquetes" roles="entrega" />
 	<allow pages="Clientes.Modificar, Clientes.Ver, Clientes.Deposito" roles="creditos" />
 	<allow pages="Productos.Agregar, Productos.Modificar, Productos.Ver" roles="productos" />

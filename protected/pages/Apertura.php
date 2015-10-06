@@ -37,7 +37,7 @@ class Apertura extends TPage
 				array("fecha"=>date("Y-m-d H:i:s"), 
 				"importe"=>$this->txtFondo->Text));
 				$this->getClientScript()->registerBeginScript("guardado",
-						"alert('Se ha guardado la salida de efectivo');\n" . 
+						"alert('Se ha guardado el fondo revolvente de hoy');\n" . 
 						"document.location.href = 'index.php?page=Cobranza';\n");
 	}
 }

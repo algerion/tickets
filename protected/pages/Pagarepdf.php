@@ -1,15 +1,15 @@
 <?php
 include_once('../compartidos/clases/usadompdf.php');
 
-class Ticketpdf extends TPage
+class Pagarepdf extends TPage
 {
 	public function onLoad($param)
 	{
 		parent::onLoad($param);
 
 		usadompdf::creapdf("http://" . $_SERVER["HTTP_HOST"] 
-				. $_SERVER["PHP_SELF"] . "?page=ticket&ticket=" . 
-				$this->Request["ticket"], "a5");
+				. $_SERVER["PHP_SELF"] . "?page=pagare&nota=" . 
+				$this->Request["nota"], "a5", "landscape");
 	}
 }
 ?>

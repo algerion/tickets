@@ -84,8 +84,9 @@
 		function pagar()
 		{
 			document.getElementById('ctl0_Main_ddlClientes').disabled = false;
+			open('', 'nota', 'width=400px; height=600px')
 			if(document.getElementById("ctl0_Main_txtCredito").value != '')
-				open('', 'pagare');
+				open('', 'pagare', 'width=600px; height=300px');
 		}
 	</script>
 </com:TContent>

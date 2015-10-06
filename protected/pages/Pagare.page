@@ -5,44 +5,47 @@
 			<tr>
 				<td>PAGARÉ</td>
 				<td>NO.<com:TLabel ID="lblNumero" /></td>
-				<td>Bueno por: <com:TLabel ID="lblImporte" /></td>
+				<td align="right">Bueno por: $<com:TLabel ID="lblImporte" /></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td colspan="2">
+				<td colspan="2" align="right">
+					<br />
 					En <com:TLabel ID="lblLugarFirma" /> a <com:TLabel ID="lblDia" /> de <com:TLabel ID="lblMes" /> 
 					de <com:TLabel ID="lblAnio" />
 				</td>
 			</tr>
 			<tr>
-				<td colspan="3">
-					Debo(mos) y pagaré(mos) incondicionalmente por este Pagaré a la orden de <com:TLabel ID="lblCobrador" /> en 
-					<com:TLabel ID="lblLugarCobro" /> la cantidad de
+				<td colspan="3" align="justify">
+					Debo(mos) y pagare(mos) incondicionalmente por este Pagaré a la orden de <com:TLabel ID="lblCobrador" /> en 
+					<com:TLabel ID="lblLugarCobro" /> la cantidad de:
 				</td>
 			</tr>
 			<tr>
-				<td colspan="3"><com:TLabel ID="lblCantidad" /></td>
+				<td colspan="3" align="center"><com:TLabel ID="lblCantidad" /></td>
 			</tr>
 			<tr>
-				<td colspan="3">
-					Valor recibido a mi(nuestra) entera satisfacción. Este pagaré está sujeto a la condición de que, 
-					al no pagarse a su vencimiento, desde la fecha de vencimiento hasta el día de su liquidación, causará 
+				<td colspan="3" align="justify">
+					Valor recibido a mi(nuestra) entera satisfaccion. Este pagaré está sujeto a la condición de que, 
+					al no pagarse a su vencimiento, desde la fecha de vencimiento hasta el día de su liquidación, causará
 					intereses moratorios al tipo de <com:TLabel ID="lblInteres" /> % mensual, pagadero en esta ciudad 
 					puntualmente con el principal.
+					<br /><br />
 				</td>
 			</tr>
 			<tr>
-				<td colspan="3">
+				<td colspan="3" align="center">
 					Acepto(amos)
 				</td>
 			</tr>
 			<tr>
-				<td colspan="3">
+				<td colspan="3" align="center">
+					<br /><br />
 					____________________________________________
 				</td>
 			</tr>
 			<tr>
-				<td colspan="3">
+				<td colspan="3" align="center">
 					<com:TLabel ID="lblDeudor" />
 				</td>
 			</tr>
