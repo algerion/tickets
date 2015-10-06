@@ -1,6 +1,6 @@
 /*
-SQLyog Community v10.1 
-MySQL - 5.5.34 : Database - ticket
+SQLyog Community v12.12 (32 bit)
+MySQL - 5.6.24 : Database - ticket
 *********************************************************************
 */
 
@@ -122,6 +122,24 @@ CREATE TABLE `notas_productos` (
 
 insert  into `notas_productos`(`id_nota`,`id_producto`,`cantidad`,`precio`) values (1,2,2,'395.00'),(1,18,1,'200.00'),(1,21,2,'95.00');
 
+/*Table structure for table `pagares` */
+
+DROP TABLE IF EXISTS `pagares`;
+
+CREATE TABLE `pagares` (
+  `id_pagare` int(11) NOT NULL AUTO_INCREMENT,
+  `id_nota` int(11) DEFAULT NULL,
+  `lugarfirma` varchar(200) DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  `cobrador` varchar(200) DEFAULT NULL,
+  `lugarcobro` varchar(200) DEFAULT NULL,
+  `interes` decimal(8,2) DEFAULT NULL,
+  `deudor` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id_pagare`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `pagares` */
+
 /*Table structure for table `parametros` */
 
 DROP TABLE IF EXISTS `parametros`;
@@ -134,7 +152,7 @@ CREATE TABLE `parametros` (
 
 /*Data for the table `parametros` */
 
-insert  into `parametros`(`llave`,`valor`) values ('adeudomax','-50000'),('cobrador','Rocío García Ramírez'),('correofact','angel.bravo@outlook.com'),('correorept','algerion1@hotmail.com'),('iva','16'),('lugar','Oaxaca de Juárez, Oax.'),('revolvente','18900'),('vale','194.98');
+insert  into `parametros`(`llave`,`valor`) values ('adeudomax','-50000'),('cobrador','Rocío García Ramírez'),('correofact','angel.bravo@outlook.com'),('correorept','algerion1@hotmail.com'),('interes','7'),('iva','16'),('lugar','Oaxaca de Juárez, Oax.'),('revolvente','18900'),('vale','194.98');
 
 /*Table structure for table `permisos` */
 
