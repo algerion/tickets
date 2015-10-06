@@ -68,6 +68,31 @@ class Caja extends TPage
 		}
 	}
 	
+	public function guarda_pagare()
+	{
+		$lugar = Conexion::Retorna_Campo($this->dbConexion, "parametros", "valor", 
+				array("llave"=>"lugar"));
+		$cobrador = Conexion::Retorna_Campo($this->dbConexion, "parametros", "valor", 
+				array("llave"=>"cobrador"));
+		$interes = Conexion::Retorna_Campo($this->dbConexion, "parametros", "valor", 
+				array("llave"=>"interes"));
+		$cliente = $this->ddlClientes->SelectedItem->Text;
+
+		$pagare = array(
+				"id_nota"=>$this->Request["nota"],
+				"lugarfirma"=>$lugar,
+				"fecha"=>date("Y-m-d"), 
+				"cobrador"=>$cobrador,
+				"lugarcobro"=>$lugar,
+				"interes"=>$interes,
+				"deudor"=>$cliente
+		);
+		Conexion::Inserta_Registro($this->dbConexion, "pagares", $pagare);
+		$this->getClientScript()->registerBeginScript("pagare",
+				"open('index.php?page=Pagare&nota=" . $id_nota . "', 'pagare');\n");
+		
+	}
+	
 	public function btnPagar_Click($sender, $param)
 	{
 		$credito = $this->txtCredito->Text;
@@ -137,6 +162,8 @@ class Caja extends TPage
 							"credito"=>$credito
 					);
 					Conexion::Inserta_Registro($this->dbConexion, "cobros", $cobro);
+					if($credito != "")
+						$this->guarda_pagare();
 					$this->getClientScript()->registerBeginScript("guardado",
 							"alert('Se ha registrado el pago de la nota.');\n" . 
 							"document.location.href = 'index.php?page=Cobranza';\n");

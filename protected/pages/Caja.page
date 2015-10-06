@@ -80,6 +80,13 @@
 		{
 			return (isNaN(valor) || valor == '') ? 0 : valor;
 		}
+		
+		function pagar()
+		{
+			document.getElementById('ctl0_Main_ddlClientes').disabled = false;
+			if(document.getElementById("ctl0_Main_txtCredito").value != '')
+				open('', 'pagare');
+		}
 	</script>
 </com:TContent>
 <com:TContent ID="Main">
@@ -173,7 +180,7 @@
 				<td colspan="1"><com:TTextBox ID="txtCambio" ReadOnly="True" Width="200px" /></td>
 			</tr>
 		</table>
-		<com:TButton ID="btnPagar" Text="Pagar" OnClick="btnPagar_Click" Attributes.onclick="document.getElementById('ctl0_Main_ddlClientes').disabled = false;"/>
+		<com:TButton ID="btnPagar" Text="Pagar" OnClick="btnPagar_Click" Attributes.onclick="pagar()"/>
 		<script>
 			cambio();
 		</script>

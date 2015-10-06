@@ -1,27 +1,51 @@
-<%@ MasterClass="Application.layouts.EmptyLayout" Title="Pagar?" %>
+<%@ MasterClass="Application.layouts.EmptyLayout" Title="Pagaré" %>
 <com:TContent ID="Main">
 	<div align="center">
-	<table width="200px" align="right">
-		<tr>
-			<td>PAGAR?</td>
-			<td>NO.<com:TLabel ID="lblNumero" /></td>
-			<td>Bueno por: <com:TLabel ID="lblImporte" /></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td colspan="2">En <com:TLabel ID="lblLugar" /> a <com:TLabel ID="lblDia" /> de <com:TLabel ID="lblMes" /> de <com:TLabel ID="lblAnio" /></td>
-		</tr>
-		<tr>
-			<td colspan="3">Debo(mos) y pagar?(mos) incondicionalmente por este Pagar? a la orden de <com:TLabel ID="lblCobrador" /> en 
-				<com:TLabel ID="lblLugarCobro" /> la cantidad de</td>
-		</tr>
-		<tr>
-			<td colspan="3"><com:TLabel ID="lblCantidad" /></td>
-		</tr>
-		<tr>
-			<td colspan="3">Valor recibido a mi(nuestra) entera satisfacci?n. Este pagar??est? sujeto a la condici?n de que, 
-				al no pagarse a su vencimiento, desde la fecha de vencimiento hasta el d?a de su liquidaci?n, causar? intereses 
-				moratorios al tipo de <com:TLabel ID="lblInteres" /> % mensual, pagadero en esta ciudad puntualmente con el principal.</td>
-		</tr>
-	</table>
+		<table>
+			<tr>
+				<td>PAGARÉ</td>
+				<td>NO.<com:TLabel ID="lblNumero" /></td>
+				<td>Bueno por: <com:TLabel ID="lblImporte" /></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td colspan="2">
+					En <com:TLabel ID="lblLugarFirma" /> a <com:TLabel ID="lblDia" /> de <com:TLabel ID="lblMes" /> 
+					de <com:TLabel ID="lblAnio" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					Debo(mos) y pagaré(mos) incondicionalmente por este Pagaré a la orden de <com:TLabel ID="lblCobrador" /> en 
+					<com:TLabel ID="lblLugarCobro" /> la cantidad de
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3"><com:TLabel ID="lblCantidad" /></td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					Valor recibido a mi(nuestra) entera satisfacción. Este pagaré está sujeto a la condición de que, 
+					al no pagarse a su vencimiento, desde la fecha de vencimiento hasta el día de su liquidación, causará 
+					intereses moratorios al tipo de <com:TLabel ID="lblInteres" /> % mensual, pagadero en esta ciudad 
+					puntualmente con el principal.
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					Acepto(amos)
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					____________________________________________
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<com:TLabel ID="lblDeudor" />
+				</td>
+			</tr>
+		</table>
+	</div>
 </com:TContent>
