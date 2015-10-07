@@ -7,5 +7,8 @@ class Clientes extends TActiveRecord
  
     public $id_cliente; 
     public $nombre;
+	public $direccion;
+	public $telefono;
+	public $poblacion;
 }
 ?>
