@@ -19,6 +19,7 @@
 		</MenuItem>
 		<MenuItem ID="smAdmClientes" Title="Clientes" Url="index.php?page=Clientes.Modificar" Description="Administrar clientes" IdPag="creditos" />
 		<MenuItem ID="smAdmDeposito" Title="Depósitos a cuenta" Url="index.php?page=Clientes.Deposito" Description="Depósitos a cuenta" IdPag="creditos" />
+		<MenuItem ID="smAdmConfig" Title="Configuración" Url="index.php?page=Config.Modificar" Description="Configuración del sistema" IdPag="admin" />
 		<MenuItem ID="smAdmRestPass" Title="Restablecer contraseña" Url="index.php?page=restpass" Description="Restablecer contraseña de usuario" IdPag="rpas" />
 	</MenuItem>
 	<MenuItem ID="smSalir" Title="Salir" Url="index.php?page=Usuarios.Login&amp;action=Salir" />

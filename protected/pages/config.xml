@@ -8,6 +8,7 @@
 	<allow pages="Entrega, Paquetes" roles="entrega" />
 	<allow pages="Clientes.Modificar, Clientes.Ver, Clientes.Deposito" roles="creditos" />
 	<allow pages="Productos.Agregar, Productos.Modificar, Productos.Ver" roles="productos" />
+	<allow pages="Config.Modificar" roles="admin" />
     <deny users="*" />
   </authorization>
 </configuration>
