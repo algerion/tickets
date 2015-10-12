@@ -17,7 +17,7 @@ class Ver extends TPage
 //		if(!$this->IsPostBack)
 		{
 			$resultado = Conexion::Retorna_Registro($this->dbConexion, "clientes", array(), 
-					" nombre LIKE '%" . $this->txtBusqueda->Text . "%'");
+					" WHERE nombre LIKE '%" . $this->txtBusqueda->Text . "%'");
 			if(isset($this->Request["tipo"]))
 				if($this->Request["tipo"] == "link")
 					for($i = 0; $i < count($resultado); $i++)

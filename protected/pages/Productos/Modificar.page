@@ -1,9 +1,23 @@
 <%@ MasterClass="Application.layouts.MainLayout" Title="Modificar producto" %>
 <com:TContent ID="Main">
 	<div align="center">
+		<com:TTextBox ID="txtBusqueda" />
+		<com:TButton Text="Buscar" />
+		<br />
 		<table border="0">
 			<tr>
-				<td colspan="1"><com:TScaffoldView RecordClass="Productos" /></td>
+				<td colspan="1">
+					<com:TDataGrid ID="dgProductos" HeaderStyle.CssClass="encab" ItemStyle.CssClass="filapar" 
+							AlternatingItemStyle.CssClass="filaimpar" AutoGenerateColumns="false">
+						<prop:EmptyTemplate>
+							<com:TLiteral Text="No se han agregado productos" />
+						</prop:EmptyTemplate>
+						<com:THyperLinkColumn HeaderText="Código" DataTextField="codigo" DataNavigateUrlField="id_producto" 
+								DataNavigateUrlFormatString="index.php?page=Productos.Agregar&amp;id_producto=%s"/>
+						<com:TBoundColumn HeaderText="Descripción" DataField="descripcion" />
+						<com:TBoundColumn HeaderText="Precio" DataField="precio" />
+					</com:TDataGrid>
+				</td>
 			</tr>
 		</table>
 	</div>

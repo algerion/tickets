@@ -13,6 +13,12 @@
 				</td>
 			</tr>
 			<tr>
+				<td colspan="1">Grupo:</td>
+				<td colspan="1">
+					<com:TDropDownList ID="ddlGrupo" DataTextField="grupo" DataValueField="id_grupo" CausesValidation="False" />
+				</td>
+			</tr>
+			<tr>
 				<td colspan="1">Descripción:</td>
 				<td colspan="1">
 					<com:TTextBox ID="txtDescripcion" Width="300px" MaxLength="200" CausesValidation="False" />
