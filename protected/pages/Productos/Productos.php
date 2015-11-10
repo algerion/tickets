@@ -13,10 +13,10 @@ class Productos extends TActiveRecord
 	
 	public $grupo;
 	
-     public static $RELATION=array
-     (
-         'grupo' => array(self::BELONGS_TO, 'Grupos', 'id_grupo'),
-     );
+	public static $RELATION=array
+	(
+	 'grupo' => array(self::BELONGS_TO, 'Grupos', 'id_grupo'),
+	);
 	 
 	public static function finder($className=__CLASS__)
 	{
